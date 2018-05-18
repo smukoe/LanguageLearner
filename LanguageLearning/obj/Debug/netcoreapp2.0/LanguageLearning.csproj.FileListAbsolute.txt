@@ -1,0 +1,11 @@
+C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\bin\Debug\netcoreapp2.0\LanguageLearning.deps.json
+C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\bin\Debug\netcoreapp2.0\LanguageLearning.runtimeconfig.json
+C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\bin\Debug\netcoreapp2.0\LanguageLearning.runtimeconfig.dev.json
+C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\bin\Debug\netcoreapp2.0\LanguageLearning.dll
+C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\bin\Debug\netcoreapp2.0\LanguageLearning.pdb
+C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcoreapp2.0\LanguageLearning.csproj.CoreCompileInputs.cache
+C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcoreapp2.0\LanguageLearning.AssemblyInfoInputs.cache
+C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcoreapp2.0\LanguageLearning.AssemblyInfo.cs
+C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcoreapp2.0\LanguageLearning.dll
+C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcoreapp2.0\LanguageLearning.pdb
+C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcoreapp2.0\LanguageLearning.csprojResolveAssemblyReference.cache

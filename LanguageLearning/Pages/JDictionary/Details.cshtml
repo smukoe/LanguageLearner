@@ -1,0 +1,49 @@
+@page
+@model LanguageLearning.Pages.JDictionary.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>JWord</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.JWord.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.JWord.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.JWord.Definition)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.JWord.Definition)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.JWord.Kana)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.JWord.Kana)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.JWord.PartsOfSpeech)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.JWord.PartsOfSpeech)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.JWord.Notes)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.JWord.Notes)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.JWord.ID">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
