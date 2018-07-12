@@ -1,0 +1,53 @@
+﻿@page
+@model LanguageLearning.Pages.UserCreateModel
+
+@{
+    ViewData["Title"] = "UserCreate";
+}
+<style>
+    #submitAccount {
+        position:relative;
+        top: 65px;            
+    }
+    #passwordAgain {
+        position:relative;
+        bottom: 38px;
+    }
+    #loginFields{
+        position: relative;
+        top: 70%;
+        left: 35%;
+    }
+</style>
+<h2>Create an account</h2>
+<body>
+    <div class="row" id="loginFields">
+        <div class="col-md-4">
+            <form id="createAccountForm" method="post">
+                <div class="form-group">
+                    <label asp-for="UserData.UserName" class="control-label"></label>
+                    <input asp-for="UserData.UserName" id="usernameInput" class="form-control" autocomplete="off" />
+                    <span asp-validation-for="UserData.UserName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="UserData.Password" class="control-label"></label>
+                    <input type="password" asp-for="UserData.Password" id="passwordInput" class="form-control , showpassword" autocomplete="off" />
+                    <span asp-validation-for="UserData.Password" class="text-danger"></span>
+                    <button type="button" id="passwordVisibility">Show Password</button>
+                </div>
+                <p><input type="submit" id="submitAccount" value="Submit" /></p>
+            </form>
+            <div id="passwordAgain" class="form-group">
+                <label class="control-label">Confirm Password</label>
+                <input type="password" id="confirmPassword" class="form-control" autocomplete="off" />
+                <p><text id="passwordMatchingError"></text></p>
+            </div>
+        </div>
+    </div>
+    <script src="~/js/UserCreationPage.js"></script>
+    <script src="~/js/AccountInputHandling.js"></script>
+</body>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

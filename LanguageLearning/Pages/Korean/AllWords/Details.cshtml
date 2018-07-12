@@ -1,0 +1,49 @@
+@page
+@model LanguageLearning.Pages.Korean.AllWords.KoreanDetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Korean Word</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.KWord.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.KWord.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.KWord.Definition)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.KWord.Definition)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.KWord.SoundChange)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.KWord.SoundChange)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.KWord.PartsOfSpeech)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.KWord.PartsOfSpeech)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.KWord.Notes)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.KWord.Notes)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.KWord.ID">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

@@ -1,6 +1,8 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <link rel="stylesheet" href="~/css/DropDownMenu.css" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - LanguageLearning</title>
@@ -26,17 +28,30 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-page="/Index" class="navbar-brand">LanguageLearner</a>
+                <a asp-page="/Index" class="navbar-brand">Language Learner</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-page="/Index">Home</a></li>
                     <li><a asp-page="/About">About</a></li>
                     <li><a asp-page="/Contact">Contact</a></li>
-                    <li><a asp-page="/JDictionary/Index">J Words</a></li>
-                    <li><a asp-page="/JTranslate">J Translate</a></li>
-                    <li><a asp-page="/JKanaTable">J Kana</a></li>
+                    <li><a asp-page="/UserLogin">Log in</a></li>
                 </ul>
+                <div class="dropdown">
+                    <button class="dropbtn">Japanese</button>
+                    <div class="dropdown-content">
+                        <a asp-page="/Japanese/AllWords/Index">List of Words</a>
+                        <a asp-page="/Japanese/Dictionary">Dictionary</a>
+                        <a asp-page="/Japanese/MemoriseGame">Word Memorise Game</a>
+                        <a asp-page="/Japanese/KanaTable">Kana Table</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="dropbtn">Korean</button>
+                    <div class="dropdown-content">
+                        <a asp-page="/Korean/AllWords/Index">List of Words</a>                       
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
@@ -44,7 +59,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2018 - LanguageLearner</p>
+            <p>&copy; 2018 - Language Learner - Created by Barry Co</p>
         </footer>
     </div>
 
@@ -68,7 +83,7 @@
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
-
-    @RenderSection("Scripts", required: false)
+    
+    @RenderSection("Scripts", required: false)    
 </body>
 </html>

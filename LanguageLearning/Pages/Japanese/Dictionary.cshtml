@@ -1,0 +1,46 @@
+﻿@page
+@model LanguageLearning.Pages.Japanese.DictionaryModel
+@{
+    ViewData["Title"] = "Dictionary";
+}
+
+<style>
+    .wordInfo:hover {
+        background-color: #eeeeee;
+    }
+
+    div > text {
+        font-size: 150%;
+    }   
+</style>
+<head>
+    <script src="~/js/WanaKana.js"></script>    
+    <link rel="stylesheet" href="~/css/Modal.css" />
+</head>
+<body>
+    <h2>Dictionary</h2>        
+    <p>Type romaji, kana or kanji in the box below to search</p>
+    Word to search: <input type="text" id="japaneseWordInput" autocomplete="off" />
+    <br />
+    <table class="table">
+        <tbody id="contentOfWords"></tbody>
+    </table>
+    <p id="jsonLength"></p>
+
+    <div id="wordModal" class="modal">
+        <div id="wordDetails" class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <!--Modal content-->
+            </div>
+        </div>
+    </div>
+    
+    <script src="~/js/Kana.js"></script>
+    <script src="~/js/Dictionary.js"></script>    
+</body>
+
+
+

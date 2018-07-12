@@ -1,0 +1,65 @@
+@page
+@model LanguageLearning.Pages.Japanese.AllWords.JapaneseCreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>Japanese Word</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div id="JWordName" class="form-group">
+                <label asp-for="JWord.Name" class="control-label"></label>
+                <input asp-for="JWord.Name" class="form-control" />
+                <span asp-validation-for="JWord.Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="JWord.Definition" class="control-label"></label>
+                <input asp-for="JWord.Definition" class="form-control" />
+                <span asp-validation-for="JWord.Definition" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="JWord.Kana" class="control-label"></label>
+                <input asp-for="JWord.Kana" class="form-control" />
+                <span asp-validation-for="JWord.Kana" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="JWord.PartsOfSpeech" class="control-label"></label> <!--Selection of different POS-->
+                <select asp-for="JWord.PartsOfSpeech" class="form-control">
+                    <option value="Noun">Noun</option>
+                    <option value="Verb">Verb</option>
+                    <option value="Adjective">Adjective</option>
+                    <option value="Adverb">Adverb</option>
+                    <option value="Other">Other</option>
+                </select>
+                <span asp-validation-for="JWord.PartsOfSpeech" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="JWord.Notes" class="control-label"></label>
+                <input asp-for="JWord.Notes" class="form-control" />
+                <span asp-validation-for="JWord.Notes" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

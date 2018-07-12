@@ -9,7 +9,8 @@ namespace LanguageLearning.Models
         {
         }
 
-        public DbSet<JWord> JWord { get; set; }
-        public DbSet<KWord> KWord { get; set; } 
+        public DbSet<JapaneseWord> JapaneseWord { get; set; }        
+        public DbSet<KoreanWord> KoreanWord { get; set; } 
+        public DbSet<UserData> UserData { get; set; }
     }
 }

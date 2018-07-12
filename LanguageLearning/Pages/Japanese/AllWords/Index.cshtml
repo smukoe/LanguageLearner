@@ -1,0 +1,79 @@
+@page
+@model LanguageLearning.Pages.Japanese.AllWords.JapaneseIndexModel
+
+@{
+    ViewData["Title"] = "Japanese Words";
+}
+<h2>List of Japanese Words</h2>
+<body>
+    <p>
+        <a asp-page="Create">Add new word</a>
+    </p>
+    <form>
+        <p>
+            Parts of Speech:
+            <select>
+                <option value="All">All</option>
+            </select>
+        </p>
+        <p>
+            Word:<input type="text" name="searchWordName" />
+                 <input type="submit" value="Filter" class="btn btn-default" /> |
+                 <a asp-page="./Index">Back to full list</a>
+        </p>                       
+    </form>    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.JapaneseWord[0].Name)
+                </th>
+                <th>
+                    <a asp-page="./Index" asp-route-sortOrder="@Model.SortDefinition" />
+                    @Html.DisplayNameFor(model => model.JapaneseWord[0].Definition)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.JapaneseWord[0].Kana)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.JapaneseWord[0].PartsOfSpeech)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.JapaneseWord[0].Notes)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>            
+            @foreach (var item in Model.ListAssign)
+            {
+                @if (item.PartsOfSpeech.Contains("Verb"))
+                {
+                    item.Definition = "To " + item.Definition;
+                }
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Definition)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Kana)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PartsOfSpeech)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Notes)
+                    </td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>    
+</body>

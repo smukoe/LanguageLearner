@@ -11,16 +11,17 @@ using System;
 namespace LanguageLearning.Migrations
 {
     [DbContext(typeof(WordContext))]
-    partial class WordContextModelSnapshot : ModelSnapshot
+    [Migration("20180706101654_KoreanWord")]
+    partial class KoreanWord
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("LanguageLearning.Models.JapaneseWord", b =>
+            modelBuilder.Entity("LanguageLearning.Models.JWord", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
@@ -37,7 +38,7 @@ namespace LanguageLearning.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("JapaneseWord");
+                    b.ToTable("JWord");
                 });
 
             modelBuilder.Entity("LanguageLearning.Models.KoreanWord", b =>

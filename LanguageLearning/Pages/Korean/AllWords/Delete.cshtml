@@ -1,0 +1,52 @@
+@page
+@model LanguageLearning.Pages.Korean.AllWords.KoreanDeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Korean Word</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.KWord.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.KWord.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.KWord.Definition)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.KWord.Definition)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.KWord.SoundChange)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.KWord.SoundChange)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.KWord.PartsOfSpeech)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.KWord.PartsOfSpeech)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.KWord.Notes)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.KWord.Notes)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="KWord.ID" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>

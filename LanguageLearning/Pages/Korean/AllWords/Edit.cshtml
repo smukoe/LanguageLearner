@@ -1,0 +1,61 @@
+@page
+@model LanguageLearning.Pages.Korean.AllWords.KoreanEditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Korean Word</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="KWord.ID" />
+            <div class="form-group">
+                <label asp-for="KWord.Name" class="control-label"></label>
+                <input asp-for="KWord.Name" class="form-control" />
+                <span asp-validation-for="KWord.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="KWord.Definition" class="control-label"></label>
+                <input asp-for="KWord.Definition" class="form-control" />
+                <span asp-validation-for="KWord.Definition" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="KWord.SoundChange" class="control-label"></label>
+                <input asp-for="KWord.SoundChange" class="form-control" />
+                <span asp-validation-for="KWord.SoundChange" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="KWord.PartsOfSpeech" class="control-label"></label> <!--Selection of different POS-->
+                <select asp-for="KWord.PartsOfSpeech" class="form-control">
+                    <option value="Noun">Noun</option>
+                    <option value="Verb">Verb</option>
+                    <option value="Adjective">Adjective</option>
+                    <option value="Adverb">Adverb</option>
+                    <option value="Other">Other</option>
+                </select>
+                <span asp-validation-for="KWord.PartsOfSpeech" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="KWord.Notes" class="control-label"></label>
+                <input asp-for="KWord.Notes" class="form-control" />
+                <span asp-validation-for="KWord.Notes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
