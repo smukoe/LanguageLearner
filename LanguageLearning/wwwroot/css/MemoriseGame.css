@@ -1,0 +1,335 @@
+﻿@-webkit-keyframes correctColor {
+    0% {
+        background-color: #28ff13;
+        color: white;
+        opacity: 1;
+    }
+
+    100% {
+        background-color: #eeeeee;
+        border-color: #0093ed;
+        color: black;
+    }
+}
+
+@-webkit-keyframes incorrectColor {
+    0% {
+        background-color: #ff2929;
+        color: white;
+        opacity: 1;
+    }
+
+    100% {
+        background-color: #eeeeee;
+        border-color: #0093ed;
+        color: black;
+    }
+}
+
+.space20 {
+    height: 20px;
+}
+
+#timerHistoryField {
+    position: absolute;
+    right: 300px;
+    top: 100px;
+}
+
+    #timerHistoryField h3 {
+        font-size: 1.2em;
+    }
+
+#gameField {
+    position: relative;
+    width: 600px;
+    height: 500px;
+    left: 50%;
+    margin-left: -300px;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+#answerField {
+    position: relative;
+    width: 600px;
+    margin: auto;
+    top: 130px;
+}
+
+    #answerField.container {
+        display: inline-block;
+    }
+
+    #answerField .answerButton {
+        background-color: #eeeeee;
+        border: 2px solid #0093ed;
+        border-radius: 10px;
+        width: 280px;
+        padding: 32px 64px;
+        text-align: center;
+        -webkit-transition-duration: 0.3s; /* Safari */
+        transition-duration: 0.15s;
+        cursor: pointer;
+    }
+
+    #answerField button.neutral:hover {
+        background-color: #0093ed;
+        border-color: #0074bb;
+        color: white;
+        cursor: pointer;
+    }
+
+    #answerField button.practiceIncorrect {
+        border-color: #ff2929;
+        background-color: #ff2929;
+        cursor: default;
+    }
+
+    #answerField button.incorrect {
+        -webkit-animation-name: incorrectColor;
+        -webkit-animation-duration: 500ms;
+        -webkit-animation-iteration-count: 1;
+        -webkit-animation-timing-function: ease-in-out;
+    }
+
+    #answerField button.correct {
+        -webkit-animation-name: correctColor;
+        -webkit-animation-duration: 500ms;
+        -webkit-animation-iteration-count: 1;
+        -webkit-animation-timing-function: ease-in-out;
+    }
+
+.questions {
+    padding: 5%;
+    height: 120px;
+}
+
+#randomWordText {
+    position: relative;
+    top: 80px;
+    font-size: 300%;
+    text-align: center;
+}
+
+#gameTypeDisplay {
+    height: 40px;
+    background-color: #25d9a3;
+    border: 1px solid black;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    text-align: center;
+    font-size: 1.3em;
+    line-height: 40px;
+}
+
+#gameResetButton {
+    position: relative;
+    height: 30px;
+    width: 180px;
+    margin: -30px -90px;
+    top: 160px;
+    left: 80%;
+    background-color: #eeeeee;
+    border: 2px solid #ff7f7f;
+    border-radius: 5px;
+    -webkit-transition-duration: 0.3s; /* Safari */
+    transition-duration: 0.15s;
+}
+
+    #gameResetButton:hover {
+        background-color: #ff2323;
+        color: white;
+    }
+
+#replayButton {
+    position: relative;
+    height: 30px;
+    width: 100px;
+    margin: -30px -50px;
+    top: 160px;
+    left: 14%;
+    background-color: #eeeeee;
+    border: 2px solid #ff7f7f;
+    border-radius: 5px;
+    -webkit-transition-duration: 0.3s; /* Safari */
+    transition-duration: 0.15s;
+}
+
+    #replayButton:hover {
+        background-color: #ff2323;
+        color: white;
+    }
+
+#scoreboard {
+    position: absolute;
+    top: 50px;
+    left: 300px;
+}
+
+#gameType {
+    position: relative;
+    padding-top: 30px;
+}
+
+    #gameType .flex {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+
+    #gameType button {
+        background-color: #eeeeee;
+        border: 2px solid #00cd38;
+        border-radius: 5px;
+        -webkit-transition-duration: 0.3s; /* Safari */
+        transition-duration: 0.15s;
+    }
+
+    #gameType .noJQuery {
+        border-color: #e4feeb;
+        background-color: #d3d3d3;
+        color: #8f8f8f;
+    }
+
+    #gameType .hover:hover {
+        background-color: #00cd38;
+        color: white;
+    }
+
+    #gameType .languageButton {
+        padding: 16px 32px;
+    }
+
+    #gameType .translateTypeButton {
+        padding: 16px 32px;
+    }
+
+    #gameType .kanaType {
+        padding: 16px 32px;
+    }
+
+    #gameType .kanaTranslateType {
+        padding: 16px 32px;
+    }
+
+    #gameType #practice button {
+        padding: 0;
+        margin: 0;
+        width: 100px;
+        height: 30px;
+        border-color: #f4511e;
+    }
+
+    #gameType #practice {
+        position: relative;
+        left: 15px;
+        bottom: 15px;
+        margin-bottom: 20px;
+    }
+
+#practice span {
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+    #practice span:after {
+        content: '\00bb';
+        position: absolute;
+        opacity: 0;
+        top: 0;
+        right: -20px;
+        transition: 0.5s;
+    }
+
+#practice .off:hover {
+    background-color: #f4511e;
+    color: white;
+}
+
+#practice .on {
+    background-color: #f4511e;
+    color: white;
+}
+
+#practice .off:hover span {
+    padding-right: 15px;
+}
+
+#practice .on span {
+    padding-right: 15px;
+}
+
+#practice .off:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+
+#practice .on span:after {
+    opacity: 1;
+    right: 0;
+}
+
+#practice .description {
+    position: relative;
+    padding: 5px;
+    bottom: 30px;
+    left: 250px;
+    width: 300px;
+    border: 1px dotted black;
+}
+
+#practiceStatus {
+    font-weight: bold;
+}
+
+.languageButton + .languageButton {
+    margin-left: 10px;
+}
+
+.translateTypeButton + .translateTypeButton {
+    margin-left: 10px;
+}
+
+.kanaType + .kanaType {
+    margin-left: 10px;
+}
+
+.kanaTranslateType + .kanaTranslateType {
+    margin-left: 10px;
+}
+
+.languageOption {
+    padding-top: 10px;
+}
+
+.kanaOption {
+    padding-top: 10px;
+}
+
+.kanaTranslateOption {
+    padding-top: 10px;
+}
+
+#startButton {
+    position: absolute;
+    height: 30px;
+    width: 100px;
+    margin: -30px -50px;
+    top: 450px;
+    left: 50%;
+    background-color: #eeeeee;
+    border: 2px solid #ff7f7f !important;
+    border-radius: 5px;
+    -webkit-transition-duration: 0.3s; /* Safari */
+    transition-duration: 0.15s;
+}
+
+    #startButton:hover {
+        background-color: #ff7f7f !important;
+        color: white;
+    }

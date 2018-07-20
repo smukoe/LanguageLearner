@@ -46,11 +46,7 @@
         </thead>
         <tbody>            
             @foreach (var item in Model.ListAssign)
-            {
-                @if (item.PartsOfSpeech.Contains("Verb"))
-                {
-                    item.Definition = "To " + item.Definition;
-                }
+            {                
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.Name)

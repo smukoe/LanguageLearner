@@ -6,8 +6,11 @@ namespace LanguageLearning.Models
     public class JapaneseWord
     {
         public int ID { get; set; }
+        [Required]
         public string Name { get; set; }
+        [Required]
         public string Definition { get; set; }
+        [Required]
         public string Kana { get; set; }
 
         [Display(Name = "Parts of Speech")]

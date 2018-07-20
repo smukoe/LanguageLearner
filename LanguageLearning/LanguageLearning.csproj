@@ -7,6 +7,8 @@
     <Compile Remove="Migrations\20180706100350_KoreanWord.Designer.cs" />
     <Compile Remove="Migrations\20180706101535_KoreanWord2.cs" />
     <Compile Remove="Migrations\20180706101535_KoreanWord2.Designer.cs" />
+    <Compile Remove="Migrations\20180718110059_kana_id_int.cs" />
+    <Compile Remove="Migrations\20180718110059_kana_id_int.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />

@@ -1,0 +1,98 @@
+﻿@page
+@model LanguageLearning.Pages.DictionaryModel
+@{
+    ViewData["Title"] = "Dictionary";
+}
+
+<style>
+    .wordInfo:hover {
+        background-color: #eeeeee;
+    }
+    .space {
+        height: 80px;
+    }
+   
+    .kanji{
+        font-size: 150%;
+    }
+
+    .kana {
+        font-size: 150%;
+    }
+    #languageSelector {
+        position: absolute;
+        top: 75px;
+        left: 800px;
+    }
+    #languageSelector button {
+        background-color: #eeeeee;
+        border: 2px solid #d98813;
+        border-radius: 5px;
+        -webkit-transition-duration: 0.15s; /* Safari */
+        transition-duration: 0.15s;
+
+        width: 100px;
+        height: 30px;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+    }
+        #languageSelector button.hover:hover {
+            background-color: #d98813;
+            color: white;
+        }
+        #languageSelector button.noJQuery {
+            border-color: #d6ba93;
+            background-color: #d3d3d3;
+            color: #8f8f8f;
+        }
+
+        #searchField {
+            position: absolute;
+            top: 160px;
+            left: 390px;            
+        }
+        #description {
+            width: 400px;            
+        }
+    .table {        
+        
+    }
+</style>
+<head>
+    <script src="~/js/WanaKana.js"></script>    
+    <link rel="stylesheet" href="~/css/Modal.css" />
+</head>
+<body>
+    <h2>Dictionary</h2>       
+    <div id="languageSelector" class="flex">
+        <p>Select the dictionary language</p>
+        <button id="selectJapanese" class="languageButton hover">Japanese</button>
+        <button id="selectKorean" class="languageButton hover">Korean</button>
+    </div>
+    <div id="description"></div>    
+    <div id="searchField">
+        Word to search: <input type="text" id="userWordInput" autocomplete="off" />
+    </div>    
+    <div class="space"></div>
+    <table class="table">
+        <tbody id="contentOfWords"></tbody>
+    </table>
+    <p id="jsonLength"></p>
+
+    <div id="wordModal" class="modal">
+        <div id="wordDetails" class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <!--Modal content-->
+            </div>
+        </div>
+    </div>
+       
+    <script src="~/js/Dictionary.js"></script>    
+</body>
+
+
+

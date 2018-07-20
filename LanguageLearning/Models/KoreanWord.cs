@@ -6,7 +6,9 @@ namespace LanguageLearning.Models
     public class KoreanWord
     {
         public int ID { get; set; }
+        [Required]
         public string Name { get; set; }
+        [Required]
         public string Definition { get; set; }
 
         [Display(Name = "Sound Change")]

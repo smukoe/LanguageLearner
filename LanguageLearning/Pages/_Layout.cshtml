@@ -35,23 +35,30 @@
                     <li><a asp-page="/Index">Home</a></li>
                     <li><a asp-page="/About">About</a></li>
                     <li><a asp-page="/Contact">Contact</a></li>
-                    <li><a asp-page="/UserLogin">Log in</a></li>
+                    <li><a asp-page="/UserLogin">Log in</a></li>   
+                    <li><a asp-page="/Dictionary">Dictionary</a></li>
                 </ul>
                 <div class="dropdown">
                     <button class="dropbtn">Japanese</button>
                     <div class="dropdown-content">
                         <a asp-page="/Japanese/AllWords/Index">List of Words</a>
-                        <a asp-page="/Japanese/Dictionary">Dictionary</a>
-                        <a asp-page="/Japanese/MemoriseGame">Word Memorise Game</a>
+                        <a asp-page="/Japanese/Kana/HiraganaIndex">List of Hiragana</a>
+                        <a asp-page="/Japanese/Kana/KatakanaIndex">List of Katakana</a>
                         <a asp-page="/Japanese/KanaTable">Kana Table</a>
                     </div>
                 </div>
                 <div class="dropdown">
                     <button class="dropbtn">Korean</button>
                     <div class="dropdown-content">
-                        <a asp-page="/Korean/AllWords/Index">List of Words</a>                       
+                        <a asp-page="/Korean/AllWords/Index">List of Words</a>
                     </div>
                 </div>
+                <div class="dropdown">
+                    <button class="dropbtn">Self Study</button>
+                    <div class="dropdown-content">
+                        <a asp-page="/Self_Study/MemoriseGame">Word Memorise Game</a>
+                    </div>
+                </div>                
             </div>
         </div>
     </nav>

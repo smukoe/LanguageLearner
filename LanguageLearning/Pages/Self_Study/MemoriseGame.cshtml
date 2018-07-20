@@ -1,0 +1,77 @@
+﻿@page
+@model LanguageLearning.Pages.Self_Study.MemoriseGameModel
+@{
+    ViewData["Title"] = "Word Memorise Game";
+}
+
+<h2>Word Memorise Game</h2>
+<head>  
+    <link rel="stylesheet" href="~/css/MemoriseGame.css" />
+</head>
+<body>
+    <div id="timerHistoryField">
+        <h3>Time taken to answer correctly</h3>
+        <div class="content"></div>
+    </div>
+    <div id="timerText">
+        <p><span id="timerMinutes"></span>:<span id="timerSeconds"></span>:<span id="timerTens"></span></p>
+    </div>
+    <br />    
+    <div id="gameField">
+        <div id="gameType" >            
+            <div id="practice">
+                <button class="off"><span>Practice</span></button>
+                <span style="margin-left: 10px;">Practice mode: <span id="practiceStatus">Off</span></span>
+                <div class="description">
+                    Practice mode allows you to reselect your answer if you choose incorrectly, and the same word may appear more than once
+                </div>
+            </div>
+            <div class="language flex">
+                <button class="languageButton hover">Japanese</button>
+                <button class="languageButton hover">Korean</button>
+            </div>
+            <div class="languageOption flex" style="display: none">
+                <button id="toEnglish" class="translateTypeButton hover"></button>
+                <button id="fromEnglish" class="translateTypeButton hover"></button>
+                <button id="kanaButton" class="translateTypeButton hover">Kana</button>
+            </div> 
+            <div class="kanaOption flex" style="display: none">
+                <button class="kanaType hover">Hiragana</button>
+                <button class="kanaType hover">Katakana</button>
+            </div>
+            <div class="kanaTranslateOption flex" style="display: none">
+                <button id="fromKana" class="kanaTranslateType hover"></button>
+                <button id="toKana" class="kanaTranslateType hover"></button>
+            </div>
+            <button id="startButton" class="button hover" style="display: none">Start game</button>
+        </div>
+        <div id="game" style="display:none">
+            <div id="gameTypeDisplay"></div>
+            <div class="questions">                                  
+                    <div id="randomWordText"></div>                
+            </div>
+            <div id="answerField">
+                <div class="container">
+                    <p>
+                        <button class="answerButton neutral" id="answerButton1"></button>
+                        <button class="answerButton neutral" id="answerButton2"></button>
+                    </p>
+                    <p>
+                        <button class="answerButton neutral" id="answerButton3"></button>
+                        <button class="answerButton neutral" id="answerButton4"></button>
+                    </p>
+                </div>
+            </div>
+            <button id="replayButton">Start Again</button>
+            <button id="gameResetButton">Change game mode</button>
+            <div id="scoreboard">               
+                <div class="scoreCount">                    
+                        <text id="answerScore">Game has not started</text>                   
+                </div>                
+            </div>           
+        </div>
+    </div>
+    <div class="space20"></div>
+    <script src="~/js/WordMemoriseGame.js"></script>
+</body>
+

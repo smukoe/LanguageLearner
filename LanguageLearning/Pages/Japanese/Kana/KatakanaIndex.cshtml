@@ -1,0 +1,35 @@
+@page
+@model LanguageLearning.Pages.Japanese.Kana.KatakanaIndexModel
+
+@{
+    ViewData["Title"] = "Katakana";
+}
+<h2>List of Katakana</h2>
+<body>    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Katakana[0].Kana)
+                </th>
+                <th>                    
+                    @Html.DisplayNameFor(model => model.Katakana[0].Romaji)
+                </th>                
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>            
+            @foreach (var item in Model.ListKatakana)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Kana)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Romaji)
+                    </td>                                      
+                </tr>
+            }
+        </tbody>
+    </table>    
+</body>

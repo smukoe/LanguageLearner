@@ -1,31 +1,65 @@
-﻿$('#japaneseWordInput').keyup(function () {
+﻿var languageSelection = "";
+
+if (languageSelection === "") {
+    $('#userWordInput').prop("disabled", true);
+} else {
+    $('#userWordInput').prop("disabled", false);
+}
+
+$('#userWordInput').keyup(function () {
     var wordToSearch = $(this).val();
     var kanaEquivalent;
-    if (checkInputRegex(wordToSearch)) {
-        kanaEquivalent = wanakana.toKana(wordToSearch);
+    var languageOfInput;
+    
+    var payload;
+    var urlHandler;
+    
+    switch (languageSelection) {
+        case "Japanese":
+            if (checkInputRegex(wordToSearch)) {
+                kanaEquivalent = wanakana.toKana(wordToSearch);
+                languageOfInput = "English";
+            } else {
+                kanaEquivalent = "";
+                languageOfInput = "Japanese";
+            }
+            
+            urlHandler = "SearchJapaneseInput";
+            payload = { WordToSearch: wordToSearch, Kana: kanaEquivalent, InputLanguage: languageOfInput };
+            break;
+        case "Korean":
+            break;        
     }
-    
-    
-    //Run GET request for input
-    $.get("/Japanese/Dictionary?handler=SearchDictionary", { WordToSearch: wordToSearch, Kana: kanaEquivalent }).done(function (result) {
-        var allMatchedWords = JSON.parse(JSON.stringify(result));
-        if (allMatchedWords === null || allMatchedWords.length === 0) {
-            $('#contentOfWords').html("No matching result");
-        } else {
-            $('#contentOfWords').empty();
-            createTable(allMatchedWords);            
-            highlightWords();
-            $('#jsonLength').html(JSON.stringify(result));            
-        }       
-    });
+
+    getWords(payload, urlHandler);   
 });
 
-$('#contentOfWords').on("click", ".wordInfo", function (event) {
-    //alert("hi");
+$('.languageButton').click(function () {
+    var $selectedButton = $(this);
+    var language = $selectedButton.html();
+
+    languageSelection = language;
+    resetButtons();
+    disableButton('noJQuery', $selectedButton);
+    $('#userWordInput').prop("disabled", false);
+
+    switch (language) {
+        case "Japanese":
+            $('#description').html("Search Japanese or English words using kanji, kana or romaji by typing in the box below");
+            break;
+        case "Korean":
+            $('#description').html("Korean is currently unavailable");
+            $('#userWordInput').prop("disabled", true);
+            break;
+    }
+    
+});
+
+$('#contentOfWords').on("click", ".wordInfo", function (event) {   
     var kanji = $(this).find('.kanji').text();
     var kana = $(this).find('.kana').text();
     var definition = $(this).find('.definition').text();
-    //alert(kana);
+    
     fillModalContent(kanji, kana, definition);
     $("#wordModal").show();
 });
@@ -34,6 +68,21 @@ $(".close").click(function () {
     $("#wordModal").hide();
 });
 
+function getWords(data, urlHandler) {
+    //Run GET request for input   
+    $.get("/Dictionary?handler=" + urlHandler, data).done(function (result) {
+        var allMatchedWords = JSON.parse(JSON.stringify(result));
+        if (allMatchedWords === null || allMatchedWords.length === 0) {
+            $('#contentOfWords').html("No matching result");
+        } else {
+            $('#contentOfWords').empty();
+            createTable(allMatchedWords);
+            checkInputForHighlight();
+            //$('#jsonLength').html(JSON.stringify(result));
+        }
+    });
+}
+
 function createTable(allMatchedWords) {             
     for (var i = 0; i < allMatchedWords.length; i++) {           
         var Name = allMatchedWords[i].name,
@@ -41,50 +90,70 @@ function createTable(allMatchedWords) {
             Definition = allMatchedWords[i].definition,
             POS = allMatchedWords[i].partsOfSpeech,
             Kanji;
-            
-        if (POS === 'Verb') {
-            Definition = "To " + Definition;
-        } else {
-            Definition = allMatchedWords[i].definition;
-        }
-
-        if (Name === Kana) {
+                              
+        if (Name === Kana) {            
             Kanji = Name;
         } else {
             Kanji = Name + '</text>, <text class="words kana">' + Kana;
         }
 
         var newRowContent = '<tr><td><div class="wordInfo"><text class="words kanji">' + Kanji + '</text><p><text class="words definition">' + Definition + '</text></p></div></td></tr>';
+
         $("#contentOfWords").append(newRowContent);               
     }   
 }
 
-function highlightWords() {   
-    var input = $('#japaneseWordInput').val();
-    
-    var inputKana = wanakana.toKana(input);
-    $('.words').each(function () { 
-        var result = $(this).html();
-        var regex = new RegExp(input, 'gi');
-        var highlightedWord = result.replace(regex, function (str) {
-            return "<span class='highlight'>" + str + "</span>";
-        });
-        $(this).html(highlightedWord);
-    });      
+function disableButton(classToToggle, $selectedButton) {
+    $selectedButton.prop("disabled", true);
 
-    if (checkInputRegex(input)) {
-        var inputKana = wanakana.toKana(input)
-        $('.words').each(function () {
-            var result = $(this).html();
-            var regex = new RegExp(inputKana, 'gi');
-            var highlightedWord = result.replace(regex, function (str) {
-                return "<span class='highlight'>" + str + "</span>";
-            });
-            $(this).html(highlightedWord);
-        });      
+    if (classToToggle === 'noJQuery') {
+        $selectedButton.toggleClass(classToToggle + ' hover');
     }
-   
-    $(".highlight").css('background-color', '#eeee00');
+}
+
+function resetButtons() {
+    $(".languageButton").each(function () {
+        if (!$(this).hasClass("hover")) {
+            $(this).prop("disabled", false);
+            $(this).toggleClass('noJQuery hover');
+        }
+    });
+}
+
+function checkInputForHighlight() {   
+    var input = $('#userWordInput').val();   
+    var inputKana = wanakana.toKana(input);
+
+    $('.kana').each(function () {
+        var whatToHighlight = $(this).html();
+        var classIdentity = $(this);
+
+        highlightWords(whatToHighlight, classIdentity, inputKana);
+    });
+
+    $('.kanji').each(function () {
+        var whatToHighlight = $(this).html();
+        var classIdentity = $(this);
+
+        highlightWords(whatToHighlight, classIdentity, inputKana);
+    });
+  
+    $('.definition').each(function () { 
+        var whatToHighlight = $(this).html();
+        var classIdentity = $(this);
+
+        highlightWords(whatToHighlight, classIdentity, input);
+    });      
+           
+    $(".highlight").css('background-color', '#eeee00');    
+}
+
+function highlightWords(whatToHighlight, classIdentity, userInput) {          
+    var regex = new RegExp(userInput, 'gi');
+    var highlightedWord = whatToHighlight.replace(regex, function (str) {
+        return "<span class='highlight'>" + str + "</span>";
+    });
+    $(classIdentity).html(highlightedWord);      
 }
 
 function fillModalContent(kanji, kana, definition) {

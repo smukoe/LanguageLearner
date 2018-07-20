@@ -2,6 +2,10 @@
 var scoreOfCorrect = 0;
 var scoreOfWrong = 0;
 
+var totalWordCount;
+var isRestart = false;
+var timerDelay = 500;
+
 //Variables for timer
 var tens = 0;
 var seconds = 0;
@@ -10,13 +14,17 @@ var interval;
 
 //Variables for game mode selection
 var languageSelection;
+var kanaSelection;
+var isKana;
 var languageFrom;
 var languageTo;
+var isPractice = false;
 
 checkGameStatus();
 
 $('#gameResetButton').click(function () { 
     //Reset score and progress
+    isRestart = false;
     if (confirm("Resetting game, are you sure?")) { // Pop up box for confirmation
         scoreOfCorrect = 0;
         scoreOfWrong = 0;
@@ -27,16 +35,46 @@ $('#gameResetButton').click(function () {
     }      
 });
 
+$('#replayButton').click(function () {
+    isRestart = true;
+    if (confirm("Starting again, are you sure?")) { // Pop up box for confirmation
+        scoreOfCorrect = 0;
+        scoreOfWrong = 0;
+        stopTimer();
+        resetTimer();
+        resetGame();
+        checkGameStatus();
+    }    
+});
+
+$('#practice button').click(function () {   
+    var $selectedButton = $(this);
+
+    if ($selectedButton.hasClass('off')) {
+        isPractice = true;
+        $selectedButton.toggleClass('off on');
+    } else if ($selectedButton.hasClass('on')) {
+        isPractice = false;
+        $selectedButton.toggleClass('off on');
+    }
+
+    if (isPractice) {
+        $('#practiceStatus').html("On");
+    } else {
+        $('#practiceStatus').html("Off");
+    }    
+});
+
 $('.languageButton').click(function () {
     //Initial language selection
     var language = $(this).html();
-    var $currentButton = $(this);
+    var $selectedButton = $(this);
 
     languageSelection = language;
 
     resetGame();   
     gameTypeSelection(language);
-    disableButton('noJQuery', $currentButton);
+    disableButton('noJQuery', $selectedButton);
 
     $('#startButton').hide();
 });
@@ -44,7 +82,7 @@ $('.languageButton').click(function () {
 $(".translateTypeButton").click(function () {    
     //Which translation mode selection
     var translateMode = $(this).html();
-    var $currentButton = $(this);
+    var $selectedButton = $(this);
     
     $(".translateTypeButton").each(function () {
         if (!$(this).hasClass("hover")) {
@@ -61,52 +99,99 @@ $(".translateTypeButton").click(function () {
         languageTo = "English";        
     }
            
-    disableButton('noJQuery', $currentButton);
+    disableButton('noJQuery', $selectedButton);
     $('#startButton').html("Start game");
-    $('#startButton').show();  
+
+    if (translateMode === "Kana") {
+        isKana = true;
+        $('#startButton').hide();
+        $('.kanaOption').show();       
+    } else {       
+        isKana = false;
+        $(".kanaOption").hide();
+        $(".kanaTranslateOption").hide();
+
+        $(".kanaType").each(function () {
+            if (!$(this).hasClass("hover")) {
+                $(this).prop("disabled", false);
+                $(this).toggleClass('noJQuery hover');
+            }
+        });
+
+        $(".kanaTranslateType").each(function () {
+            if (!$(this).hasClass("hover")) {
+                $(this).prop("disabled", false);
+                $(this).toggleClass('noJQuery hover');
+            }
+        });   
+
+        $('#startButton').show();  
+    }   
+});
+
+$('.kanaType').click(function () {
+    var kanaChosen = $(this).html();   
+    var $selectedButton = $(this);
+
+    kanaSelection = kanaChosen;   
+
+    $(".kanaType").each(function () {
+        if (!$(this).hasClass("hover")) {
+            $(this).prop("disabled", false);
+            $(this).toggleClass('noJQuery hover');
+        }
+    });   
+
+    $(".kanaTranslateType").each(function () {
+        if (!$(this).hasClass("hover")) {
+            $(this).prop("disabled", false);
+            $(this).toggleClass('noJQuery hover');
+        }
+    });   
+
+    kanaTypeSelection(kanaChosen);
+    disableButton('noJQuery', $selectedButton);    
+});
+
+$('.kanaTranslateType').click(function () {
+    var translateMode = $(this).html();
+    var $selectedButton = $(this);
+    
+    $(".kanaTranslateType").each(function () {
+        if (!$(this).hasClass("hover")) {
+            $(this).prop("disabled", false);
+            $(this).toggleClass('noJQuery hover');
+        }
+    });   
+    
+    if (translateMode.startsWith('English')) {
+        languageTo = kanaSelection;
+        languageFrom = "English";
+    } else if (translateMode.startsWith(kanaSelection)) {
+        languageFrom = kanaSelection;
+        languageTo = "English";
+    }
+    
+    disableButton('noJQuery', $selectedButton);   
+    
+    $('#startButton').html("Start game");   
+    $('#startButton').show();
 });
 
 $('#startButton').click(function () {   
-    var $currentButton = $(this);
-    disableButton('noJQuery', $currentButton);
-    startGame();
-    checkGameStatus();
+    var $selectedButton = $(this);
+    disableButton('noJQuery', $selectedButton);   
+    startGame();   
 });
 
 $('.answerButton').click(function () {
     //Response to any of the answer buttons clicked
     var wordToAnswer = $('#randomWordText').html();        
-    var answerValue = $(this).html();
-    var answer = answerValue;
-    var selectedButton = $(this);
+    var answerValue = $(this).html();    
+    var $selectedButton = $(this);
 
-    //Checks if word starts with 'To' and trims the word
-    if (answerValue.startsWith("To ")) {
-        answerValue = answerValue.substr(3);
-    }   
-    
-    $.get("/Japanese/MemoriseGame?handler=CheckAnswer", {Question: wordToAnswer, Answer: answerValue}).done(function (result) { //When passing data the names have to be the same in C# method               
-        var isCorrectObject = JSON.parse(JSON.stringify(result));
-               
-        if (isCorrectObject.answerCheck) {
-            $('#isAnswerCorrect').html("Yes"); 
-            answerButtonColorToggle('Correct', selectedButton);  
-
-            calculateScore(true);
-            recordTimeStamp(wordToAnswer, answer);
-            //alert(answerValue);
-            checkGameModeForNextWord();                       
-            checkGameStatus();
-        }
-        else {
-            $('#isAnswerCorrect').html("No");
-            answerButtonColorToggle('Incorrect', selectedButton);           
-            disableButton('incorrect', selectedButton);
-
-            calculateScore(false);
-            checkGameStatus();
-        }
-    });            
+    disableOrEnableAnswerButtons('Disable');
+    checkGameModeForAnswer(wordToAnswer, answerValue, $selectedButton);    
 });
 
 
@@ -127,186 +212,406 @@ function resetGame() {
         }
     });   
 
+    //Reset functionality for kana selection
+    $(".kanaType").each(function () {
+        if (!$(this).hasClass("hover")) {
+            $(this).prop("disabled", false);
+            $(this).toggleClass('noJQuery hover');
+        }
+    });   
+
+    //Reset functionality for kana type buttons
+    $(".kanaTranslateType").each(function () {
+        if (!$(this).hasClass("hover")) {
+            $(this).prop("disabled", false);
+            $(this).toggleClass('noJQuery hover');
+        }
+    });   
+
     //Reset functionality for start button
     if (!$('#startButton').hasClass("hover")) {
         $('#startButton').prop("disabled", false);
         $('#startButton').toggleClass('noJQuery hover');
     }
+    $('#timerHistoryField .content').empty();
 
     $('#startButton').html('Start game');
     $('#startButton').hide();
 
-    $(".languageOption").hide();   
+    $(".languageOption").hide(); 
+    $(".kanaOption").hide();
+    $(".kanaTranslateOption").hide();
 
-    $('#game').hide();
-    $('#gameType').show();    
+    if (isRestart) {
+        startGame();
+    } else {
+        $('#game').hide();
+        $('#gameType').show(); 
+    } 
 }
 
 function startGame() {
+    let canStart;
     $('#startButton').html("Loading..");
     $('#gameTypeDisplay').html(languageFrom + " to " + languageTo); 
-    checkGameModeForNextWord();
-    checkGameStatus();
+    setGameMode();    
 }
 
 function gameTypeSelection(language) {   
+    if (language === "Japanese") {
+        $('#kanaButton').show();
+    } else {
+        $('#kanaButton').hide();
+    }
+
     $(".languageOption #toEnglish").html(language + " to English");
-    $(".languageOption #toJapanese").html("English to " + language);
+    $(".languageOption #fromEnglish").html("English to " + language);
     $(".languageOption").show();    
 }
 
-function disableButton(classToToggle, currentButton) {
+function kanaTypeSelection(kana) {
+    $(".kanaTranslateOption #fromKana").html(kana + " to English");
+    $(".kanaTranslateOption #toKana").html("English to " + kana);
+    $(".kanaTranslateOption").show();    
+}
+
+function disableButton(classToToggle, $selectedButton) {
     //Disabling button properties
-    $(currentButton).prop("disabled", true);
+    $selectedButton.prop("disabled", true);
 
     //Toggling button css properties
     if (classToToggle === 'noJQuery') {
-        $(currentButton).toggleClass(classToToggle + ' hover');
+        $selectedButton.toggleClass(classToToggle + ' hover');
     } else if (classToToggle === 'incorrect' || classToToggle === 'correct') {       
-        $(currentButton).css('cursor', 'default');               
-    }
-   
+        $selectedButton.css('cursor', 'default');               
+    }   
 }
 
-function answerButtonColorToggle(answerState, selectedButton) {
+function answerButtonColorToggle(answerState, $selectedButton) {
     if (answerState === 'Incorrect') {
-        if ($(selectedButton).hasClass('neutral')) {
-            $(selectedButton).toggleClass('neutral incorrect');
+        if ($selectedButton.hasClass('neutral')) {
+            $selectedButton.toggleClass('neutral incorrect');
+        }
+    } else if (answerState === 'PracticeIncorrect') {
+        if ($selectedButton.hasClass('neutral')) {
+            $selectedButton.toggleClass('neutral practiceIncorrect');
         }
     } else if (answerState === 'Correct') {
-        if ($(selectedButton).hasClass('neutral')) {
-            $(selectedButton).toggleClass('neutral correct');
+        if ($selectedButton.hasClass('neutral')) {
+            $selectedButton.toggleClass('neutral correct');
         }
-    }  
+    }      
 }
 
-function checkGameModeForNextWord() { //Gets next set of words based off game mode  
-    if (languageFrom === "English") {
-        //Translating from english
-        switch (languageTo) {
+function setGameMode() {
+    var data;    
+
+    if (languageFrom !== 'English') {
+        switch (languageFrom) {
             case "Japanese":
-                alert('Feature currently unavailable');
-                resetGame();
+                data = "Japanese";
+                break;
+            case "Hiragana":
+                data = "Hiragana";
+                break;
+            case "Katakana":
+                data = "Katakana";
                 break;
             case "Korean":
-                alert('Feature currently unavailable');
-                resetGame();
+                data = "Korean";
                 break;
         }
     } else {
-        //Translating to English
-        switch (languageFrom) {
-            case "Japanese":
-                getNextWordJapaneseToEnglish();
-                break;
-            case "Korean":
-                alert('Feature currently unavailable');
-                resetGame();
-                break;
-        }
-    }       
-}
-
-function checkGameModeForAnswer() { //Checks answer based off game mode
-    if (languageFrom === "English") {
-        //Translating from english
         switch (languageTo) {
             case "Japanese":
-                alert('Feature currently unavailable');
-                resetGame();
+                data = "Japanese";
+                break;
+            case "Hiragana":
+                data = "Hiragana";
+                break;
+            case "Katakana":
+                data = "Katakana";
                 break;
             case "Korean":
-                alert('Feature currently unavailable');
-                resetGame();
+                data = "Korean";
                 break;
         }
-    } else {
-        //Translating to English
-        switch (languageFrom) {
-            case "Japanese":
-                checkAnswerJapaneseToEnglish();
-                break;
-            case "Korean":
-                alert('Feature currently unavailable');
-                resetGame();
-                break;
-        }
-    }       
-}
+    }
 
-function getNextWordJapaneseToEnglish() {
-    $.get("/Japanese/MemoriseGame?handler=JapanWord", function (words) {
-        var randomisedIndex = getRandomIndex();
-        selectedWordObject = JSON.parse(JSON.stringify(words)); //Converts JSON into JavaScript object        
-
-        $('#randomWordText').html(selectedWordObject[randomisedIndex].name); //Must use .html to display the object        
-        $('#randomWordText').show();
-
-        $('.answerButton').each(function (index) {
-            if (selectedWordObject[index].partsOfSpeech === "Verb") {
-                $(this).html("To " + selectedWordObject[index].definition);
-            } else {
-                $(this).html(selectedWordObject[index].definition);
-            }
-        });
-        refreshGameDisplay();
+    $.get("/Self_Study/MemoriseGame?handler=SetGameType", { mainLanguage: data, isPractice: isPractice }).done(function (result) {
+        wordCount = JSON.parse(JSON.stringify(result));
+        
+        totalWordCount = wordCount.allWordsCount;               
+        checkGameModeForNextWord();
+        checkGameStatus();         
     });
 }
 
-function getNextWordEnglishToJapanese() {
-
-}
-
-function getNextWordKoreanToEnglish() {
-
-}
-
-function getNextWordEnglishToKorean() {
-
-}
-
-function checkAnswerJapaneseToEnglish() {
+function checkGameModeForNextWord() { //Gets next set of words based off game mode  
+    var urlHandler;
     
+    if (languageFrom === "English") {
+        //Translating from english
+        switch (languageTo) {
+            case "Japanese":               
+                urlHandler = 'JapanWord';
+                getNextWord(urlHandler);
+                break;
+            case "Hiragana":
+                urlHandler = 'Hiragana';
+                getNextWord(urlHandler);
+                break;
+            case "Katakana":
+                alert('Feature currently unavailable');
+                resetGame();
+                break;
+            case "Korean":
+                alert('Feature currently unavailable');
+                resetGame();
+                break;
+        }
+    } else {
+        //Translating to English
+        switch (languageFrom) {
+            case "Japanese":
+                urlHandler = 'JapanWord';
+                getNextWord(urlHandler);                               
+                break;
+            case "Hiragana":               
+                urlHandler = 'Hiragana';
+                getNextWord(urlHandler);
+                break;
+            case "Katakana":
+                alert('Feature currently unavailable');
+                resetGame();
+                break;
+            case "Korean":
+                alert('Feature currently unavailable');
+                resetGame();
+                break;
+        }
+    }       
 }
 
-function checkAnswerEnglishToJapanese() {
-
+function getNextWord(urlHandler) {    
+    $.get("/Self_Study/MemoriseGame?handler=" + urlHandler, function (data) {               
+        displayWordsForGame(data);
+    });        
 }
 
-function checkAnswerKoreanToEnglish() {
-
+function checkGameModeForAnswer(wordToAnswer, answerValue, $selectedButton) { //Checks answer based off game mode
+    var urlHandler;
+    var payload;
+    if (languageFrom === "English") {
+        //Translating from english
+        switch (languageTo) {
+            case "Japanese":               
+                urlHandler = "CheckAnswerJapanese";
+                payload = { Question: wordToAnswer, Answer: answerValue, TranslateFrom: languageFrom };
+                checkAnswer(urlHandler, payload, $selectedButton, wordToAnswer, answerValue);
+                break;
+            case "Hiragana":
+                alert('Feature currently unavailable');
+                resetGame();
+                break;
+            case "Katakana":
+                alert('Feature currently unavailable');
+                resetGame();
+                break;
+            case "Korean":
+                alert('Feature currently unavailable');
+                resetGame();
+                break;
+        }
+    } else {
+        //Translating to English
+        switch (languageFrom) {
+            case "Japanese":
+                urlHandler = "CheckAnswerJapanese";
+                payload = { Question: wordToAnswer, Answer: answerValue, TranslateFrom: languageFrom };
+                checkAnswer(urlHandler, payload, $selectedButton, wordToAnswer, answerValue);
+                break;
+            case "Hiragana":
+                urlHandler = 'CheckAnswerHiragana';
+                payload = { Question: wordToAnswer, Answer: answerValue, TranslateFrom: languageFrom };
+                checkAnswer(urlHandler, payload, $selectedButton, wordToAnswer, answerValue);
+                break;
+            case "Katakana":
+                alert('Feature currently unavailable');
+                resetGame();
+                break;
+            case "Korean":
+                alert('Feature currently unavailable');
+                resetGame();
+                break;
+        }
+    }
 }
 
-function checkAnswerEnglishToKorean() {
+function checkAnswer(urlHandler, payload, $selectedButton, wordToAnswer, answerValue) {
+    $.get("/Self_Study/MemoriseGame?handler=" + urlHandler, payload).done(function (result) {           
+        var isCorrectObject = JSON.parse(JSON.stringify(result));       
 
+        if (isCorrectObject.answerCheck) {
+            answerButtonColorToggle('Correct', $selectedButton);           
+            calculateScore(true);            
+            recordTimeStamp(wordToAnswer, answerValue);  
+           
+            checkIfGameEnds(true);                            
+        }
+        else {
+            calculateScore(false);            
+            if (isPractice) {               
+                answerButtonColorToggle('PracticeIncorrect', $selectedButton);
+                disableOrEnableAnswerButtons('Enable');
+                disableButton('incorrect', $selectedButton);
+            } else {
+                answerButtonColorToggle('Incorrect', $selectedButton);
+                checkIfGameEnds(false); 
+            }                                  
+            checkGameStatus();
+        }
+    });            
+}
+
+function checkIfGameEnds(IsCorrectAnswer) {
+    $.get("/Self_Study/MemoriseGame?handler=CheckGameStatus", {TotalWordCount : totalWordCount}).done(function (result) {
+        var IsGameEnd = JSON.parse(JSON.stringify(result));        
+        if (IsCorrectAnswer) {          
+            if (IsGameEnd.isFinished) {
+                setTimeout(function () {
+                    gameEndScreen();
+                }, timerDelay);       
+            } else {
+                //Small delay to allow the colour change and to prevent button spam
+                setTimeout(function () {                    
+                    checkGameModeForNextWord();
+                    disableOrEnableAnswerButtons('Enable');
+                    checkGameStatus();
+                }, timerDelay);
+            }               
+        } else {           
+            if (IsGameEnd.isFinished) {
+                setTimeout(function () {
+                    gameEndScreen();
+                }, timerDelay);                  
+            } else {               
+                setTimeout(function () {
+                    checkGameModeForNextWord();
+                    disableOrEnableAnswerButtons('Enable');
+                }, timerDelay);    
+            }                        
+        }        
+    });    
+}
+
+function displayWordsForGame(words) {
+    var randomisedIndex = randomIndex();    
+    var displayWord;    
+    var selectedWordObject = JSON.parse(JSON.stringify(words)); //Converts JSON into JavaScript object        
+    
+    if (isKana) {
+        if (languageFrom === "English") {
+            //Translating from english       
+            displayWord = selectedWordObject[0].romaji;
+            $('.answerButton').each(function (index) {
+                $(this).html(selectedWordObject[randomisedIndex[index]].kana);
+            });
+        } else {
+            //Translating to English            
+            displayWord = selectedWordObject[0].kana;
+            $('.answerButton').each(function (index) {
+                $(this).html(selectedWordObject[randomisedIndex[index]].romaji);
+            });
+        }       
+    } else {
+        if (languageFrom === "English") {
+            //Translating from english       
+            displayWord = selectedWordObject[0].definition;
+            $('.answerButton').each(function (index) {
+                $(this).html(selectedWordObject[randomisedIndex[index]].name);
+            });
+        } else {
+            //Translating to English            
+            displayWord = selectedWordObject[0].name;
+            $('.answerButton').each(function (index) {
+                $(this).html(selectedWordObject[randomisedIndex[index]].definition);
+            });
+        }       
+    }
+   
+    $('#randomWordText').html(displayWord);    
+    $('#randomWordText').show();  
+        
+    refreshGameDisplay();
+}
+
+function randomIndex() {
+    var indexArray = [];
+    let isExist;
+    while (indexArray.length < 4) {
+        let rndIndex = Math.trunc(Math.random() * 4);       
+        if (indexArray.length === 0) {
+            indexArray.push(rndIndex);
+        } else {
+            for (let i = 0; i < indexArray.length; i++) {
+                if (indexArray[i] === rndIndex) {
+                    isExist = true;
+                    break;
+                } else {
+                    isExist = false;
+                }
+            }           
+
+            if (!isExist) {
+                indexArray.push(rndIndex);
+            }
+        }       
+    }
+    return indexArray;
 }
 
 function refreshGameDisplay() {
     //Ensures that the game state does not suddenly change
     resetTimer();
-    setTimer();
-
+    setTimer();   
     $(".answerButton").each(function () {
-        var $currentButton = $(this);
+        var $selectedButton = $(this);
 
-        if ($($currentButton).hasClass("incorrect")) {
-            $($currentButton).prop("disabled", false);
-            $($currentButton).toggleClass('incorrect neutral');
-        } else if ($($currentButton).hasClass("correct")) {
-            $($currentButton).prop("disabled", false);
+        if ($selectedButton.hasClass("practiceIncorrect")) {            
+            $selectedButton.toggleClass('practiceIncorrect neutral');
+
+        } else if ($selectedButton.hasClass("incorrect")) {
+            //$selectedButton.prop("disabled", false);
             setTimeout(function () {
-                var current = $currentButton;
-                $(current).toggleClass('correct neutral');                
-            }, 900);                    
+                var $current = $selectedButton;
+                $current.toggleClass('incorrect neutral');
+            }, timerDelay);
+
+        } else if ($selectedButton.hasClass("correct")) {
+            //$selectedButton.prop("disabled", false);
+            setTimeout(function () {
+                var $current = $selectedButton;
+                $current.toggleClass('correct neutral');
+            }, timerDelay);
         }
-    });
+    });   
 
     $('#gameType').hide();
-    $('#game').show();
+    $('#game').show();   
 }
 
-function getRandomIndex() {
-    return Math.trunc(Math.random() * 4);
+function disableOrEnableAnswerButtons(whatToDo) {
+    if (whatToDo === 'Disable') {
+        $('.answerButton').each(function () {
+            $(this).prop('disabled', true);
+        });
+    } else if (whatToDo === 'Enable') {
+        $('.answerButton').each(function () {
+            $(this).prop('disabled', false);
+        });
+    }
+    
 }
 
 function checkGameStatus() {         
@@ -314,7 +619,11 @@ function checkGameStatus() {
 
     $('#timerTens').html('00');
     $('#timerSeconds').html('00');
-    $('#timerMinutes').html('00');
+    $('#timerMinutes').html('00');   
+}
+
+function gameEndScreen() {
+
 }
 
 function calculateScore(isCorrectAnswer) {
@@ -386,5 +695,5 @@ function recordTimeStamp(question, answer) {
         timeStamp = minutes + ' minutes| ' + seconds + '.' + tens  + ' seconds';
     }
     
-    $('#timerHistoryField').append('<p>' + question + ' => ' + answer + " || " + timeStamp + '</p>');
+    $('#timerHistoryField .content').append('<p>' + question + ' => ' + answer + " || " + timeStamp + '</p>');
 }
