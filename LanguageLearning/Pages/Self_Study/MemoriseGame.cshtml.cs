@@ -10,18 +10,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.IO;
 using Newtonsoft.Json;
+using LanguageLearning.Models.Languages;
 
 namespace LanguageLearning.Pages.Self_Study
 {       
     public class GameResult
     {
         public bool AnswerCheck { get; set; }
-    }
-
-    public class AJAXRequest
-    {
-        public bool IsSuccessful { get; set; }
-    }
+    }   
 
     public class GameEndState
     {
@@ -32,18 +28,19 @@ namespace LanguageLearning.Pages.Self_Study
     {
         public int AllWordsCount { get; set; }
         public int WordAppearanceCount { get; set; }
-    }
+    }   
 
     public class MemoriseGameModel : PageModel
     {
         private readonly WordContext _context;
-
+        private readonly MemoriseGame _memoriseGame;
 
         //Create Model object and pass in context
-        public MemoriseGameModel(WordContext context)
+        public MemoriseGameModel(WordContext context, MemoriseGame memoriseGame)
         {
             //Store the context in a class property
             _context = context;
+            _memoriseGame = memoriseGame;
         }
 
         public int AllWordsCount { get; set; }
@@ -60,52 +57,7 @@ namespace LanguageLearning.Pages.Self_Study
 
         //Variables for Word translate game       
         public JapaneseWord CorrectJWord { get; private set; }
-        public Hiragana CorrectHiragana { get; private set; }
-      
-        public JapaneseWord RandomJapWordSelect() //Random selection of data from the database
-        {
-            var AllWords = _context.JapaneseWord;
-            int totalDataCount = AllWords.Count(); 
-            Random randomNumber = new Random(); 
-            int offset = randomNumber.Next(0, totalDataCount);
-
-            return AllWords.Skip(offset).FirstOrDefault();                    
-        }
-
-        public Hiragana RandomHiraganaSelect()
-        {
-            var AllWords = _context.Hiragana;
-            int totalDataCount = AllWords.Count();
-            Random randomNumber = new Random();
-            int offset = randomNumber.Next(0, totalDataCount);
-
-            return AllWords.Skip(offset).FirstOrDefault();
-        }
-
-            
-        public void WritePersistentCookie(string setting, string settingValue) //Writes a persistent cookie
-        {
-            CookieOptions cookieOptions = new CookieOptions();
-            CookieOptions WordSession = cookieOptions;
-            WordSession.Expires = DateTime.Now.AddMinutes(5); //Temporarily set to 5 minutes, real expiry will be forever
-            Response.Cookies.Append(setting, settingValue, WordSession);
-        }
-
-        public void ReadCookies()
-        {
-            string FirstTimeRun = Request.Cookies["HasGameStarted"];          
-
-            if (FirstTimeRun == null)
-            {               
-                string CookieName = "HasGameStarted";
-                string CookieValue = "0";
-                WritePersistentCookie(CookieName, CookieValue);
-            }
-            else
-            {
-                
-            }       
-        }
+        public Hiragana CorrectHiragana { get; private set; }                                       
                  
         public JsonResult OnGetSetGameType(string mainLanguage, bool isPractice)
         {            
@@ -148,7 +100,7 @@ namespace LanguageLearning.Pages.Self_Study
             //If all words have been selected
             if (TotalWordCount != 0 && TotalWordCount == WordAppearanceCount)
             {
-                Game.IsFinished = true;
+                Game.IsFinished = true;                
             }
             else
             {
@@ -164,7 +116,7 @@ namespace LanguageLearning.Pages.Self_Study
             
             while(RandomJWords.Count < 4)
             {
-                RandomJapWord = RandomJapWordSelect();
+                RandomJapWord = _memoriseGame.RandomJapaneseWordSelect();
                 if (!RandomJWords.Contains(RandomJapWord))
                 {
                     RandomJWords.Add(RandomJapWord);
@@ -188,7 +140,7 @@ namespace LanguageLearning.Pages.Self_Study
             
             while (RandomHiraganaWords.Count < 4)
             {
-                RandomHiragana = RandomHiraganaSelect();
+                RandomHiragana = _memoriseGame.RandomHiraganaSelect();
                 if (!RandomHiraganaWords.Any() && !CheckHiraganaOccurance(RandomHiragana)) //For the first word added to the list because it is the display word
                 {
                     RandomHiraganaWords.Add(RandomHiragana);

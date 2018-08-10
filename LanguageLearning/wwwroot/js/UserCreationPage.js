@@ -22,7 +22,7 @@ $('#confirmPassword').keyup(function () {
 
 function checkDuplicateUsername(username, password) {
     //GET request to see if username exists    
-    $.get("/UserCreate?handler=CheckUsername", {Username: username}).done(function (result) {
+    $.get("/UserAccount/UserCreate?handler=CheckUsername", {Username: username}).done(function (result) {
         var isLoginCorrect = JSON.parse(JSON.stringify(result));
         if (isLoginCorrect.isDuplicate) {
             $('#usernameError').html('Username already exists');

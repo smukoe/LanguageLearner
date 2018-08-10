@@ -8,4 +8,4 @@ C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcore
 C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcoreapp2.0\LanguageLearning.AssemblyInfo.cs
 C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcoreapp2.0\LanguageLearning.dll
 C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcoreapp2.0\LanguageLearning.pdb
-C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcoreapp2.0\LanguageLearning.csprojResolveAssemblyReference.cache
+C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcoreapp2.0\LanguageLearning.csprojAssemblyReference.cache

@@ -33,11 +33,9 @@ namespace LanguageLearning.Pages
             if (!ModelState.IsValid)
             {
                 return Page();
-            }
-
-            //Hash password            
-            HashPassword();
+            }     
             
+            HashPassword();            
             _context.UserData.Add(UserData);
             await _context.SaveChangesAsync();
 
@@ -50,7 +48,7 @@ namespace LanguageLearning.Pages
             HashUser.GeneratedSalt = HashUser.GetSalt();
             
             UserData.Password = HashUser.GetHash(UserData.Password, HashUser.GeneratedSalt);
-            UserData.Salt = Convert.ToBase64String(HashUser.GeneratedSalt);
+            UserData.StringifiedSalt = Convert.ToBase64String(HashUser.GeneratedSalt);
         }
 
         //OnGet to check if username already exists in the database

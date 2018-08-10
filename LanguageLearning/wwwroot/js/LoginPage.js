@@ -1,10 +1,10 @@
 ﻿$('#loginSubmit').click(function () {
     var username = $('#usernameInput').val();
     var password = $('#passwordInput').val();
-    alert(username + ' ' + password);
+    //alert(username + ' ' + password);
 
     //GET request to see if username exists and if data is correct
-    $.get("/UserLogin?handler=CheckUserLogin", { Username: username, Password: password }).done(function (result) {
+    $.get("/UserAccount/UserLogin?handler=CheckUserLogin", { Username: username, Password: password }).done(function (result) {
         var isLoginCorrect = JSON.parse(JSON.stringify(result));
         if (isLoginCorrect.isDetailsMatch) {
             $('#loginError').html('User details are correct');
@@ -20,7 +20,7 @@
 
 var inputAdjust = {
     position: 'relative',
-    left: '10px',    
+    left: '10px'  
 };
 
 $('#usernameInput').css(inputAdjust);

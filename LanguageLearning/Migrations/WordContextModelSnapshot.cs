@@ -3,10 +3,7 @@ using LanguageLearning.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.EntityFrameworkCore.Storage.Internal;
-using System;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LanguageLearning.Migrations
 {
@@ -17,17 +14,21 @@ namespace LanguageLearning.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
+                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("LanguageLearning.Models.Hiragana", b =>
                 {
                     b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Kana");
+                    b.Property<string>("Kana")
+                        .IsRequired();
 
-                    b.Property<string>("Romaji");
+                    b.Property<string>("Romaji")
+                        .IsRequired();
 
                     b.HasKey("ID");
 
@@ -37,7 +38,8 @@ namespace LanguageLearning.Migrations
             modelBuilder.Entity("LanguageLearning.Models.JapaneseWord", b =>
                 {
                     b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Definition")
                         .IsRequired();
@@ -60,11 +62,14 @@ namespace LanguageLearning.Migrations
             modelBuilder.Entity("LanguageLearning.Models.Katakana", b =>
                 {
                     b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Kana");
+                    b.Property<string>("Kana")
+                        .IsRequired();
 
-                    b.Property<string>("Romaji");
+                    b.Property<string>("Romaji")
+                        .IsRequired();
 
                     b.HasKey("ID");
 
@@ -74,7 +79,8 @@ namespace LanguageLearning.Migrations
             modelBuilder.Entity("LanguageLearning.Models.KoreanWord", b =>
                 {
                     b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Definition")
                         .IsRequired();
@@ -96,11 +102,12 @@ namespace LanguageLearning.Migrations
             modelBuilder.Entity("LanguageLearning.Models.UserData", b =>
                 {
                     b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Password");
 
-                    b.Property<string>("Salt");
+                    b.Property<string>("StringifiedSalt");
 
                     b.Property<string>("UserName");
 

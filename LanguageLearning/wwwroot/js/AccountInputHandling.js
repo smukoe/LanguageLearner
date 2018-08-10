@@ -4,10 +4,10 @@
         $('#passwordVisibility').click(function () {
             var changeType = "";
             if ($(this).html() === "Show Password") {
-                $(this).html("Hide Password")
+                $(this).html("Hide Password");
                 change = "text";
             } else {
-                $(this).html("Show Password")
+                $(this).html("Show Password");
                 change = "password";
             }
             var replace = $("<input type='" + change + "' />")

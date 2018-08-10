@@ -1,8 +1,15 @@
 ﻿<!DOCTYPE html>
+<style>
+    .menu {
+        position: relative;
+        display: inline-block;
+    }
+</style>
 <html>
-<head>
+<head>    
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <link rel="stylesheet" href="~/css/DropDownMenu.css" />
+    <link rel="stylesheet" href="~/css/MenuAnimation.css" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - LanguageLearning</title>
@@ -34,12 +41,11 @@
                 <ul class="nav navbar-nav">
                     <li><a asp-page="/Index">Home</a></li>
                     <li><a asp-page="/About">About</a></li>
-                    <li><a asp-page="/Contact">Contact</a></li>
-                    <li><a asp-page="/UserLogin">Log in</a></li>   
+                    <li><a asp-page="/Contact">Contact</a></li>                    
                     <li><a asp-page="/Dictionary">Dictionary</a></li>
                 </ul>
                 <div class="dropdown">
-                    <button class="dropbtn">Japanese</button>
+                    <button class="dropbtn colourTransition">Japanese</button>
                     <div class="dropdown-content">
                         <a asp-page="/Japanese/AllWords/Index">List of Words</a>
                         <a asp-page="/Japanese/Kana/HiraganaIndex">List of Hiragana</a>
@@ -48,17 +54,20 @@
                     </div>
                 </div>
                 <div class="dropdown">
-                    <button class="dropbtn">Korean</button>
+                    <button class="dropbtn colourTransition">Korean</button>
                     <div class="dropdown-content">
                         <a asp-page="/Korean/AllWords/Index">List of Words</a>
                     </div>
                 </div>
                 <div class="dropdown">
-                    <button class="dropbtn">Self Study</button>
+                    <button class="dropbtn colourTransition">Self Study</button>
                     <div class="dropdown-content">
                         <a asp-page="/Self_Study/MemoriseGame">Word Memorise Game</a>
                     </div>
-                </div>                
+                </div>
+                <div class="menu">
+                    <a asp-page="/UserAccount/UserLogin">Log in</a>
+                </div>                              
             </div>
         </div>
     </nav>
