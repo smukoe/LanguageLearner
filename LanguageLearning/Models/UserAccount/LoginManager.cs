@@ -1,21 +1,21 @@
-﻿using System;
+﻿using LanguageLearning.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace LanguageLearning.Models.UserAccount
 {
-    public class LoginManager 
+    public class LoginManager : ILoginManager
     {
-        private WordContext _context;       
-
-        private IQueryable<UserData> UserQuery;
-
+        private readonly WordContext _context;               
         public LoginManager(WordContext context)
         {
             _context = context;           
         }
-        
+
+        private IQueryable<UserData> UserQuery;        
+
         public bool FindByUsername(LoginModel loginDetails)
         {
             bool isMatch = false;
@@ -25,6 +25,14 @@ namespace LanguageLearning.Models.UserAccount
                 return isMatch = true;
             }
             return isMatch;
+        }
+
+        public bool Authenticate(LoginModel userLogin)
+        {
+            if (FindByUsername(userLogin) && PasswordSignIn(userLogin))
+                return true;
+            else
+                return false;
         }
 
         public bool PasswordSignIn(LoginModel login)
@@ -55,30 +63,30 @@ namespace LanguageLearning.Models.UserAccount
             return isMatch;
         }
 
+        private byte[] ConvertSaltToByteArray(string salt)
+        {
+            return Convert.FromBase64String(salt);
+        }
+
         public UserData GetUserDetails(LoginModel login)
         {
             QueryUserData();
             UserData userData = UserQuery.FirstOrDefault(u => u.UserName == login.Username);
             return userData;
         }
-
-        private IQueryable<UserData> QueryUserData()
-        {
-            return UserQuery = from u in _context.UserData
-                               select u;
-        }
-
+        
         private List<UserData> CheckUsername(string username)
         {
             QueryUserData();
             List<UserData> userLoginDetails = new List<UserData>();
             UserQuery = UserQuery.Where(u => u.UserName == username);
             return userLoginDetails = UserQuery.ToList();
-        }       
-
-        private byte[] ConvertSaltToByteArray(string salt)
-        {
-            return Convert.FromBase64String(salt);
         }
+
+        private IQueryable<UserData> QueryUserData()
+        {
+            return UserQuery = from u in _context.UserData
+                               select u;
+        }        
     }
 }

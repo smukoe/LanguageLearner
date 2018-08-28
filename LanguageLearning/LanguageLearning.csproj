@@ -9,8 +9,11 @@
     <Compile Remove="Migrations\20180706101535_KoreanWord2.Designer.cs" />
     <Compile Remove="Migrations\20180718110059_kana_id_int.cs" />
     <Compile Remove="Migrations\20180718110059_kana_id_int.Designer.cs" />
+    <Compile Remove="Migrations\20180828093455_user_validation.cs" />
+    <Compile Remove="Migrations\20180828093455_user_validation.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="AWSSDK.Core" Version="3.3.25.1" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.1.1" />
@@ -25,6 +28,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="2.1.1" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.2.4" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
+    <PackageReference Include="moq" Version="4.9.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.2.4" />
     <PackageReference Include="System.Security.Cryptography.Csp" Version="4.3.0" />
   </ItemGroup>
@@ -32,9 +36,6 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="wwwroot\js\WordMemoriseGame.js" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Pages\Shared\" />
+    <None Include="wwwroot\js\WordQuiz\WordQuiz.js" />
   </ItemGroup>
 </Project>

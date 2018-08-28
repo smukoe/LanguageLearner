@@ -9,52 +9,57 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 using LanguageLearning.Interfaces;
 using LanguageLearning.Cookies;
+using Newtonsoft.Json.Linq;
 
 namespace LanguageLearning.Pages.Japanese
 {
-    public class KanaTableModel : PageModel, ICookieReadAndWrite
-    {
-        private IConfiguration _config;
-
-        public KanaTableModel(IConfiguration config)
+    public class KanaTableModel : PageModel
+    {        
+        private IJwtValidation JwtValidation { get; set; }
+        public KanaTableModel(IJwtValidation jwtValidation)
         {
-            _config = config;
+            JwtValidation = jwtValidation;
         }
 
         public IActionResult OnGet()
-        {
+        {            
             string userToken = ReadCookie("Token");
-            if(userToken == null)
+
+            if(String.IsNullOrEmpty(userToken))
             {
                 return RedirectToPage("/UserAccount/UserLogin");
+            }           
+            else if (JwtValidation.ValidateToken(userToken))
+            {
+                return Page();                               
             }
             else
             {
-                JwtValidation jwtValidation = new JwtValidation(_config);
-                if (jwtValidation.ValidateToken(userToken))
-                {
-                    return Page();
-                }
-                else
-                {
-                    return BadRequest("Token could not be validated");
-                }
-            }                                   
+                return BadRequest("Token could not be validated");
+            }
         }
 
         public string ReadCookie(string cookieName)
         {
             string cookieValue = Request.Cookies[cookieName];
-            if (cookieValue != null)
-            {
+
+            if (cookieValue != null)            
                 return cookieValue;
-            }
-            return null;
+            else
+                return null;
         }
 
         public void WriteCookie(CookieModel cookieModel, int expiryTime)
         {
             throw new NotImplementedException();
         }
-    }
+
+        public JsonResult OnGetClaimsKanaTable()
+        {           
+            string userToken = ReadCookie("Token");
+            JObject json = JwtValidation.ParseTokenToJSON(userToken);            
+
+            return new JsonResult(json);
+        }       
+    }   
 }

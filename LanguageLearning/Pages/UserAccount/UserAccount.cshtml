@@ -1,0 +1,39 @@
+﻿@page
+@model LanguageLearning.Pages.UserAccount.UserAccountModel
+@{
+    ViewData["Title"] = "UserAccount";
+}
+
+<h2>Your Account</h2>
+<div>
+    <p>Welcome to your account page, @Model.UserAccount.Username</p>
+</div>
+<div>
+    Settings
+    <p>
+        Change username
+        <a asp-page="/UserAccount/Settings/ValidatePassword" asp-route-urlPath="@Model.ChangeUsernameUrl">Change Username</a>
+    </p>
+    <p>
+        Change password
+        <a asp-page="/Security/Temporary_Tokens/CreateTemporaryToken" asp-route-urlPath="@Model.ChangePasswordUrl">Change Password</a>
+    </p>
+    <p>
+        Delete Account
+        <a asp-page="/UserAccount/Settings/ValidatePassword" asp-route-urlPath="@Model.DeleteAccountUrl">Delete Account</a>
+    </p>
+</div>
+<script>
+    $.get("?handler=ClaimsUserAccount", function (result) {
+        if (result === "Invalid") {
+            $("#loginButton").show();
+            $("#accountButton").hide();              
+        } else {
+            var claims = JSON.parse(JSON.stringify(result));
+            $("#userGreeting").html("Hello, " + claims.sub);
+            $("#loginButton").hide();
+            $("#accountButton").show();
+        }        
+    });
+</script>
+

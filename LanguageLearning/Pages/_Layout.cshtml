@@ -3,6 +3,25 @@
     .menu {
         position: relative;
         display: inline-block;
+        color: inherit;
+        text-decoration: none;
+    }
+    #loginButton {
+        position: absolute;
+        right: 100px;
+        top: 15px;
+    }
+    #accountButton {
+        position: absolute;
+        right: 100px;
+        top: 0px;
+    }
+    #userLogin {
+        text-decoration: none;
+        color: #9e9e9e;
+    }
+    #userLogin:hover{
+        color: white;
     }
 </style>
 <html>
@@ -40,8 +59,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-page="/Index">Home</a></li>
-                    <li><a asp-page="/About">About</a></li>
-                    <li><a asp-page="/Contact">Contact</a></li>                    
+                    <li><a asp-page="/About">About</a></li>                       
                     <li><a asp-page="/Dictionary">Dictionary</a></li>
                 </ul>
                 <div class="dropdown">
@@ -62,12 +80,19 @@
                 <div class="dropdown">
                     <button class="dropbtn colourTransition">Self Study</button>
                     <div class="dropdown-content">
-                        <a asp-page="/Self_Study/MemoriseGame">Word Memorise Game</a>
+                        <a asp-page="/Self_Study/WordQuiz">Word Quiz</a>
                     </div>
                 </div>
-                <div class="menu">
-                    <a asp-page="/UserAccount/UserLogin">Log in</a>
-                </div>                              
+                <div id="loginButton" class="menu">
+                    <a id="userLogin" class="colourTransition" asp-page="/UserAccount/UserLogin">Log in</a>
+                </div>                           
+                <div id="accountButton" class="dropdown">
+                    <button id="userGreeting" class="dropbtn colourTransition">Hello</button>
+                    <div class="dropdown-content">
+                        <a asp-page="/UserAccount/UserAccount">Your Account</a>
+                        <a asp-page="/UserAccount/Logout">Logout</a>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>

@@ -33,12 +33,38 @@ namespace LanguageLearning.Pages.Japanese.AllWords
                 return Page();
             }
            
-            _context.JapaneseWord.Add(JWord);
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("./Index");
+            if (IsDuplicateWordName(JWord.Name))
+            {
+                _context.JapaneseWord.Add(JWord);
+                await _context.SaveChangesAsync();
+                return RedirectToPage("./Index");
+            }
+            else
+            {                
+                //somehow return an error message
+                
+                return Page();
+            }                       
         }
 
-        
+        private bool IsDuplicateWordName(string wordName)
+        {
+            //Each word name is assumed to be unique
+            IQueryable<JapaneseWord> JWordQuery = from words in _context.JapaneseWord
+                                                  select words;
+            List<JapaneseWord> matchingWords = new List<JapaneseWord>();
+
+            JWordQuery = JWordQuery.Where(w => w.Name == wordName);
+            matchingWords = JWordQuery.ToList();
+
+            if (matchingWords.Any())
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }

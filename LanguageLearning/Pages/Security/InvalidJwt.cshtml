@@ -1,0 +1,9 @@
+﻿@page
+@model LanguageLearning.Pages.Security.InvalidJwtModel
+@{
+    ViewData["Title"] = "InvalidJwt";
+}
+
+<h1>The token you are passing is invalid, please log out and log in again to request a new token</h1>
+<a asp-page="/UserAccount/Logout">Logout</a>
+

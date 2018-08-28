@@ -11,26 +11,25 @@ using Microsoft.Extensions.Logging;
 namespace LanguageLearning.Pages.UserAccount
 {
     public class LogoutModel : PageModel
-    {
-        private SignInManager<UserData> _signInManager;
-        private ILogger<LogoutModel> _logger;
-
-        public LogoutModel(SignInManager<UserData> signInManager, ILogger<LogoutModel> logger)
+    {                        
+        public IActionResult OnGet()
         {
-            _signInManager = signInManager;
-            _logger = logger;
-        }
-
-        public async Task<IActionResult> OnPost()
-        {
-            await _signInManager.SignOutAsync();
-            _logger.LogInformation("User logged out.");
+            string tokenValue = ReadCookie("Token");
+            if (tokenValue != null)
+            {
+                Response.Cookies.Delete("Token");
+            }            
             return RedirectToPage("/Index");
         }
 
-        public void OnGet()
+        public string ReadCookie(string cookieName)
         {
+            string cookieValue = Request.Cookies[cookieName];
 
+            if (cookieValue != null)            
+                return cookieValue;
+            else
+                return null;
         }
     }
 }

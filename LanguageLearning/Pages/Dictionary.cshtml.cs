@@ -5,130 +5,187 @@ using System.Threading.Tasks;
 using LanguageLearning.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json.Linq;
+using LanguageLearning.Enums;
+using LanguageLearning.Interfaces;
 
 namespace LanguageLearning.Pages
 {   
     public class DictionaryModel : PageModel
     {
         private readonly WordContext _context;
-
-        public DictionaryModel(WordContext context)
+        private readonly IJwtValidation _jwtValidation;
+        private readonly ILanguageOptions _languageOptions;
+        public DictionaryModel(IJwtValidation jwtValidation, 
+                                   WordContext context,
+                                   ILanguageOptions languageOptions)
         {
             _context = context;
+            _jwtValidation = jwtValidation;
+            _languageOptions = languageOptions;
+        }
+                 
+
+        public JsonResult OnGetClaimsDictionary()
+        {            
+            string userToken = ReadCookie("Token");
+
+            if (String.IsNullOrEmpty(userToken))
+            {
+                return new JsonResult("Invalid");
+            }
+            else
+            {
+                JObject JSONJwt = _jwtValidation.ParseTokenToJSON(userToken);
+                string username = _jwtValidation.JSONGetValue(JSONJwt, "sub");
+                return new JsonResult(JSONJwt);
+            }
         }
 
-        public List<JapaneseWord> ContainsUsersJWord { get; set; }
-        public List<KoreanWord> ContainsUsersKWord { get; set; }
-        
+        public string ReadCookie(string cookieName)
+        {
+            string cookieValue = Request.Cookies[cookieName];
+
+            if (cookieValue != null)
+                return cookieValue;
+            else
+                return null;
+        }
+
         public JsonResult OnGetSearchJapaneseInput(string WordToSearch, string Kana, string InputLanguage)
         {
-            ContainsUsersJWord = new List<JapaneseWord>();
-            ContainsUsersJWord.Clear();
-            if(InputLanguage == "English")
+            IEnumerable<JapaneseWord> matchingWords = new List<JapaneseWord>();
+            Language language = _languageOptions.MapStringToEnum(InputLanguage);
+
+            if(language == Language.English && !String.IsNullOrEmpty(Kana) && !String.IsNullOrEmpty(WordToSearch))
+            {                
+                matchingWords = matchingWords.Concat(GetJapaneseWordsFromEnglishOrKanaEquivalent(WordToSearch, Kana));
+            }          
+
+            if(language == Language.Japanese && !String.IsNullOrEmpty(WordToSearch))
             {
-                if (!string.IsNullOrEmpty(Kana))
-                {
-                    GetJapaneseWordsFromJapanese(Kana);
-                }
-
-                if (!string.IsNullOrEmpty(WordToSearch))
-                {
-                    GetJapaneseWordsFromEnglish(WordToSearch);
-                }
+                matchingWords = matchingWords.Concat(GetJapaneseWordsFromJapaneseInput(WordToSearch));
             }
-            else if(InputLanguage == "Japanese")
-            {
-                if (!string.IsNullOrEmpty(WordToSearch))
-                {
-                    GetJapaneseWordsFromJapanese(WordToSearch);
-                }
-            }
-            
-            return new JsonResult(ContainsUsersJWord);
-        }
 
-        public JsonResult OnGetSearchKoreanInput()
-        {
-            ContainsUsersKWord = new List<KoreanWord>();
-            ContainsUsersKWord.Clear();
+            return new JsonResult(matchingWords);
+        }        
 
-            //Get korean words
-
-            return new JsonResult(ContainsUsersKWord);
-        }
-
-        public void GetJapaneseWordsFromEnglish(string WordToSearch)
-        {
-            var AllWords = _context.JapaneseWord;                      
-                    //Checks if the word starts with the input
-                    foreach (JapaneseWord JWord in AllWords)
-                    {
-                        if (JWord.Name.StartsWith(WordToSearch, StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            ContainsUsersJWord.Add(JWord);
-                        }
-                        else if (JWord.Definition.StartsWith(WordToSearch, StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            ContainsUsersJWord.Add(JWord);
-                        }
-                    }
-
-                    //Secondary search if it can't find any words beginning with the input
-                    //Checks if the word contains the input
-                    foreach (JapaneseWord JWord in AllWords)
-                    {
-                        if (JWord.Name.CaseInsensitiveContains(WordToSearch))
-                        {
-                            //Checks if the word already exists in the list
-                            if (!ContainsUsersJWord.Any(w => w.Name == JWord.Name))
-                            {
-                                ContainsUsersJWord.Add(JWord);
-                            }
-                        }
-                        else if (JWord.Definition.CaseInsensitiveContains(WordToSearch))
-                        {
-                            if (!ContainsUsersJWord.Any(w => w.Definition == JWord.Definition))
-                            {
-                                ContainsUsersJWord.Add(JWord);
-                            }
-                        }
-                    }                                   
-        }       
-
-        public void GetJapaneseWordsFromJapanese(string JapaneseInput)
+        private List<JapaneseWord> GetJapaneseWordsFromEnglishOrKanaEquivalent(string englishInput, string kana)
         {
             var AllWords = _context.JapaneseWord;
+            List<JapaneseWord> matchingWords = new List<JapaneseWord>();
+
+            foreach (JapaneseWord JWord in AllWords)
+            {               
+                //Prioritise displaying kana first
+                if (JWord.Kana.StartsWith(kana))
+                {
+                    matchingWords.Add(JWord);
+                }
+                else if (JWord.Definition.StartsWith(englishInput, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    matchingWords.Add(JWord);
+                }
+
+                //English
+                if (JWord.Definition.CaseInsensitiveContains(englishInput) && !matchingWords.Any(list => list.Definition == JWord.Definition))
+                {
+                    matchingWords.Add(JWord);
+                }
+
+                //Kana                
+                if (JWord.Kana.Contains(kana) && !matchingWords.Any(list => list.Kana == JWord.Kana))
+                {
+                    matchingWords.Add(JWord);
+                }
+            }                       
+            return matchingWords;
+        }                     
+
+        private List<JapaneseWord> GetJapaneseWordsFromJapaneseInput(string japaneseInput)
+        {
+            var AllWords = _context.JapaneseWord;
+            List<JapaneseWord> matchingWords = new List<JapaneseWord>();
 
             foreach (JapaneseWord JWord in AllWords)
             {
-                if (JWord.Kana.StartsWith(JapaneseInput))
+                if (JWord.Kana.StartsWith(japaneseInput))
                 {
-                    ContainsUsersJWord.Add(JWord);
+                    matchingWords.Add(JWord);
                 }      
-                else if (JWord.Name.StartsWith(JapaneseInput))
+                else if (JWord.Name.StartsWith(japaneseInput))
                 {
-                    ContainsUsersJWord.Add(JWord);
+                    matchingWords.Add(JWord);
                 }
+
+                if (JWord.Kana.Contains(japaneseInput) && !matchingWords.Any(list => list.Kana == JWord.Kana) && !matchingWords.Any(list => list.Name == JWord.Name))
+                {
+                    matchingWords.Add(JWord);
+                }
+                else if (JWord.Name.Contains(japaneseInput) && !matchingWords.Any(list => list.Name == JWord.Name))
+                {
+                    matchingWords.Add(JWord);
+                }
+            }
+            return matchingWords;
+        }
+        
+        public JsonResult OnGetSearchKoreanInput(string WordToSearch, string InputLanguage)
+        {
+            IEnumerable<KoreanWord> matchingWords = new List<KoreanWord>();
+            Language language = _languageOptions.MapStringToEnum(InputLanguage);
+
+            if (language == Language.English && !String.IsNullOrEmpty(WordToSearch))
+            {
+                matchingWords = matchingWords.Concat(GetKoreanWordsFromEnglishInput(WordToSearch));
+            }
+            else if (language == Language.Korean && !String.IsNullOrEmpty(WordToSearch))
+            {
+                matchingWords = matchingWords.Concat(GetKoreanWordsFromKoreanInput(WordToSearch));
             }
 
-            foreach (JapaneseWord JWord in AllWords)
-            {
-                if (JWord.Kana.CaseInsensitiveContains(JapaneseInput))
+            return new JsonResult(matchingWords);
+        }
+
+        private List<KoreanWord> GetKoreanWordsFromEnglishInput(string englishInput)
+        {
+            var AllWords = _context.KoreanWord;
+            List<KoreanWord> matchingWords = new List<KoreanWord>();
+            
+            foreach (KoreanWord KWord in AllWords)
+            {              
+                if (KWord.Definition.StartsWith(englishInput, StringComparison.InvariantCultureIgnoreCase))
                 {
-                    //Checks if the word already exists in the list
-                    if (!ContainsUsersJWord.Any(w => w.Kana == JWord.Kana) && !ContainsUsersJWord.Any(w => w.Name == JWord.Name))
-                    {
-                        ContainsUsersJWord.Add(JWord);
-                    }
+                    matchingWords.Add(KWord);
                 }
-                else if (JWord.Name.CaseInsensitiveContains(JapaneseInput))
+
+                if (KWord.Definition.CaseInsensitiveContains(englishInput) && !matchingWords.Any(w => w.Definition == KWord.Definition))
                 {
-                    if (!ContainsUsersJWord.Any(w => w.Name == JWord.Name))
-                    {
-                        ContainsUsersJWord.Add(JWord);
-                    }
+                    matchingWords.Add(KWord);
+                }
+            }                      
+            return matchingWords;
+        }
+
+        private List<KoreanWord> GetKoreanWordsFromKoreanInput(string koreanInput)
+        {
+            var AllWords = _context.KoreanWord;
+            List<KoreanWord> matchingWords = new List<KoreanWord>();
+
+            foreach (KoreanWord KWord in AllWords)
+            {                
+                if (KWord.Name.StartsWith(koreanInput))
+                {
+                    matchingWords.Add(KWord);
+                }
+               
+                if (KWord.Name.CaseInsensitiveContains(koreanInput) && !matchingWords.Any(list => list.Name == KWord.Name))
+                {
+                    matchingWords.Add(KWord);
                 }
             }
+            return matchingWords;
         }
     }
 }

@@ -15,10 +15,8 @@ C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcore
 C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcoreapp2.1\LanguageLearning.TagHelpers.output.cache
 C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcoreapp2.1\LanguageLearning.RazorCoreGenerate.cache
 C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcoreapp2.1\Razor\Pages\About.g.cshtml.cs
-C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcoreapp2.1\Razor\Pages\Contact.g.cshtml.cs
 C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcoreapp2.1\Razor\Pages\Dictionary.g.cshtml.cs
 C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcoreapp2.1\Razor\Pages\Error.g.cshtml.cs
-C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcoreapp2.1\Razor\Pages\HooraySuccess.g.cshtml.cs
 C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcoreapp2.1\Razor\Pages\Index.g.cshtml.cs
 C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcoreapp2.1\Razor\Pages\Japanese\AllWords\Create.g.cshtml.cs
 C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcoreapp2.1\Razor\Pages\Japanese\AllWords\Delete.g.cshtml.cs
@@ -33,7 +31,6 @@ C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcore
 C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcoreapp2.1\Razor\Pages\Korean\AllWords\Details.g.cshtml.cs
 C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcoreapp2.1\Razor\Pages\Korean\AllWords\Edit.g.cshtml.cs
 C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcoreapp2.1\Razor\Pages\Korean\AllWords\Index.g.cshtml.cs
-C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcoreapp2.1\Razor\Pages\Self_Study\MemoriseGame.g.cshtml.cs
 C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcoreapp2.1\Razor\Pages\_Layout.g.cshtml.cs
 C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcoreapp2.1\Razor\Pages\_ValidationScriptsPartial.g.cshtml.cs
 C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcoreapp2.1\Razor\Pages\_ViewImports.g.cshtml.cs
@@ -47,3 +44,11 @@ C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcore
 C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcoreapp2.1\Razor\Pages\UserAccount\UserLogin.g.cshtml.cs
 C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcoreapp2.1\Razor\Pages\UserAccount\UserCreate.g.cshtml.cs
 C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcoreapp2.1\Razor\Pages\UserAccount\Logout.g.cshtml.cs
+C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcoreapp2.1\Razor\Pages\UserAccount\UserAccount.g.cshtml.cs
+C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcoreapp2.1\Razor\Pages\UserAccount\Settings\ChangePassword.g.cshtml.cs
+C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcoreapp2.1\Razor\Pages\UserAccount\Settings\ChangeUsername.g.cshtml.cs
+C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcoreapp2.1\Razor\Pages\UserAccount\Settings\ValidatePassword.g.cshtml.cs
+C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcoreapp2.1\Razor\Pages\Security\Temporary_Tokens\CreateTemporaryToken.g.cshtml.cs
+C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcoreapp2.1\Razor\Pages\Self_Study\WordQuiz.g.cshtml.cs
+C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcoreapp2.1\Razor\Pages\UserAccount\Settings\DeleteAccount.g.cshtml.cs
+C:\Users\Barry\Documents\Dev\LanguageLearning\LanguageLearning\obj\Debug\netcoreapp2.1\Razor\Pages\Security\InvalidJwt.g.cshtml.cs

@@ -12,7 +12,11 @@
         height: 80px;
     }
    
-    .kanji{
+    .kanji {
+        font-size: 150%;
+    }
+
+    .hangul {
         font-size: 150%;
     }
 
@@ -60,7 +64,7 @@
     }
 </style>
 <head>
-    <script src="~/js/WanaKana.js"></script>    
+    <script src="~/js/Dictionary/WanaKana.js"></script>    
     <link rel="stylesheet" href="~/css/Modal.css" />
 </head>
 <body>
@@ -91,8 +95,21 @@
         </div>
     </div>
        
-    <script src="~/js/Dictionary.js"></script>    
+    <script src="~/js/Dictionary/Dictionary.js"></script>    
 </body>
+<script>
+    $.get("/Dictionary?handler=ClaimsDictionary", function (result) {
+        if (result === "Invalid") {
+            $("#loginButton").show();
+            $("#accountButton").hide();
+        } else {
+            var claims = JSON.parse(JSON.stringify(result));
+            $("#userGreeting").html("Hello, " + claims.sub);
+            $("#loginButton").hide();
+            $("#accountButton").show();
+        }
+    });
+</script>
 
 
 

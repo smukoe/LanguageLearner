@@ -208,4 +208,17 @@
         </tr>
     </table>
 </p>
+<script>   
+    $.get("/Japanese/KanaTable?handler=ClaimsKanaTable", function (result) {
+        if (result === "Invalid") {
+            $("#loginButton").show();
+            $("#accountButton").hide();
+        } else {
+            var claims = JSON.parse(JSON.stringify(result));
+            $("#userGreeting").html("Hello, " + claims.sub);
+            $("#loginButton").hide();
+            $("#accountButton").show();
+        }        
+    });
+</script>
 
