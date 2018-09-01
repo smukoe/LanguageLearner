@@ -59,12 +59,12 @@ using LanguageLearning;
             WriteLiteral("\r\n<h2>Word Quiz</h2>\r\n");
             EndContext();
             BeginContext(130, 78, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d52f2b566d724d198513fc732ae5315f", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2cb121f980b6411391a942983843135e", async() => {
                 BeginContext(136, 8, true);
                 WriteLiteral("  \r\n    ");
                 EndContext();
                 BeginContext(144, 55, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("link", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "d85205debb4e43309f26edae0a195888", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("link", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "36d30250e7e34beabbda252dffe4f075", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -98,7 +98,7 @@ using LanguageLearning;
             WriteLiteral("\r\n");
             EndContext();
             BeginContext(210, 3670, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2df26e5f7297459c992dcd10fd0bfdf7", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "809ff86331bc4946930b5287223cf0b2", async() => {
                 BeginContext(216, 3096, true);
                 WriteLiteral(@"
     <div id=""timerHistoryField"">
@@ -169,7 +169,7 @@ using LanguageLearning;
                 WriteLiteral("s=\"space20\"></div>\r\n    ");
                 EndContext();
                 BeginContext(3312, 49, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0f9d898cbe334f12b45f21a26972b6a6", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "064bf97a2d0842caaf5f5cf6c4f1ea33", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();

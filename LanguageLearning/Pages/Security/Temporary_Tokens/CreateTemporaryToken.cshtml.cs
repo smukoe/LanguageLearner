@@ -81,17 +81,33 @@ namespace LanguageLearning.Pages.UserAccount.Settings
         private string GetTokenNameFromUrlPath(string urlPath)
         {
             string tokenName;
-            switch (urlPath)
+            string[] splitUrl = SplitUrlBySlash(urlPath);
+            string pageName = ExtractPageName(splitUrl);
+
+            if(!String.IsNullOrEmpty(pageName))
             {
-                case "/UserAccount/Settings/ChangePassword":
-                    tokenName = "ChangePasswordTemp";
-                    break;
-                default:
-                    tokenName = null;
-                    break;
+                tokenName = pageName + "Temp";
             }
+            else
+            {
+                tokenName = null;
+            }
+            
             return tokenName;
         }        
+
+        private string[] SplitUrlBySlash(string inputUrl)
+        {
+            string[] splitUrl = inputUrl.Split("/");
+            return splitUrl;
+        }
+
+        private string ExtractPageName(string[] splitUrl)
+        {
+            int lastIndex = splitUrl.Length - 1;
+
+            return splitUrl[lastIndex];
+        }
 
         private void SetTokenToCookie(string tokenName, string tokenValue)
         {

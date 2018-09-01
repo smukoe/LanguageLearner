@@ -55,7 +55,7 @@ using LanguageLearning;
             WriteLiteral("\r\n<h2>Logged out</h2>\r\n");
             EndContext();
             BeginContext(127, 41, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ddfbcc4ba9484f15b7be8fec969aaaff", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "81701d7a89744acfb69326a785c60984", async() => {
                 BeginContext(148, 16, true);
                 WriteLiteral("Back to homepage");
                 EndContext();

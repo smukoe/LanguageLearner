@@ -6,17 +6,24 @@
 }
 <style>
     #submitAccount {
-        position:relative;
-        top: 65px;            
+        position:absolute;
+        top: 240px;            
     }
     #passwordAgain {
-        position:relative;
-        bottom: 38px;
+        position:absolute;
+        top: 160px;
     }
     #loginFields{
-        position: relative;
-        top: 70%;
-        left: 35%;
+        position: relative;        
+        left: 30%;
+        height: 280px;       
+    }
+    #passwordField{
+        position: absolute;
+        top: 80px;
+    }
+    .inputFields {
+        width: 300px;
     }
 </style>
 <h2>Create an account</h2>
@@ -24,13 +31,13 @@
     <div class="row" id="loginFields">
         <div class="col-md-4">
             <form id="createAccountForm" method="post">
-                <div class="form-group">
+                <div class="form-group inputFields" id="usernameField">
                     <label asp-for="UserData.UserName" class="control-label"></label>
                     <input asp-for="UserData.UserName" id="usernameInput" class="form-control" autocomplete="off" />
                     <span asp-validation-for="UserData.UserName" class="text-danger"></span>
                     <p><text id="usernameError"></text></p>
                 </div>
-                <div class="form-group">
+                <div class="form-group inputFields" id="passwordField">
                     <label asp-for="UserData.Password" class="control-label"></label>
                     <input type="password" asp-for="UserData.Password" id="passwordInput" class="form-control matchPasswordInput" autocomplete="off" />
                     <span asp-validation-for="UserData.Password" class="text-danger"></span>
@@ -38,7 +45,7 @@
                 </div>
                 <p><input type="submit" id="submitAccount" value="Submit" /></p>
             </form>
-            <div id="passwordAgain" class="form-group">
+            <div id="passwordAgain" class="form-group inputFields">
                 <label class="control-label">Confirm Password</label>
                 <input type="password" id="confirmPassword" class="form-control matchingPasswordInput" autocomplete="off" />
                 <p><text id="passwordMatchingError"></text></p>

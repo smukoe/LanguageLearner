@@ -66,7 +66,7 @@ using LanguageLearning;
             WriteLiteral("</p>\r\n</div>\r\n<div>\r\n    Settings\r\n    <p>\r\n        Change username\r\n        ");
             EndContext();
             BeginContext(287, 117, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "88773f81624546fa9aa021ec2e3f0a78", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "46fcce88c59d4c839d0ad66d1a25375e", async() => {
                 BeginContext(385, 15, true);
                 WriteLiteral("Change Username");
                 EndContext();
@@ -101,7 +101,7 @@ using LanguageLearning;
             WriteLiteral("\r\n    </p>\r\n    <p>\r\n        Change password\r\n        ");
             EndContext();
             BeginContext(458, 126, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "46d8b7901032496f8b12f45af9de36a3", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1bc68e8ec05f472e9010e31c3ece18d4", async() => {
                 BeginContext(565, 15, true);
                 WriteLiteral("Change Password");
                 EndContext();
@@ -136,7 +136,7 @@ using LanguageLearning;
             WriteLiteral("\r\n    </p>\r\n    <p>\r\n        Delete Account\r\n        ");
             EndContext();
             BeginContext(637, 115, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7b2540357e704c4895474b73e6e24ffa", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "25d9febcc0394a4798d46807cb887dbf", async() => {
                 BeginContext(734, 14, true);
                 WriteLiteral("Delete Account");
                 EndContext();

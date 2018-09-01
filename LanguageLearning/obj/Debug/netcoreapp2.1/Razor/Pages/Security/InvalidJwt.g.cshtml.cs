@@ -55,7 +55,7 @@ using LanguageLearning;
             WriteLiteral("\r\n<h1>The token you are passing is invalid, please log out and log in again to request a new token</h1>\r\n");
             EndContext();
             BeginContext(214, 44, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e798f385f08744328185d9e8eeaac538", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2947ee756a9c489ca642112f122cc69e", async() => {
                 BeginContext(248, 6, true);
                 WriteLiteral("Logout");
                 EndContext();

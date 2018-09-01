@@ -28,7 +28,7 @@ namespace LanguageLearning.Pages.Japanese.AllWords
                 return NotFound();
             }
 
-            JWord = await _context.JapaneseWord.SingleOrDefaultAsync((System.Linq.Expressions.Expression<Func<JapaneseWord, bool>>)(m => m.ID == id));
+            JWord = await _context.JapaneseWord.SingleOrDefaultAsync(m => m.ID == id);
 
             if (JWord == null)
             {

@@ -57,7 +57,7 @@ using LanguageLearning;
             WriteLiteral("<h2>List of Katakana</h2>\r\n");
             EndContext();
             BeginContext(144, 896, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "74377c51e96d42ce81f3e902add37bb0", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8f11be4c300a4435b9f481e4ce056f1e", async() => {
                 BeginContext(150, 110, true);
                 WriteLiteral("    \r\n    <table class=\"table\">\r\n        <thead>\r\n            <tr>\r\n                <th>\r\n                    ");
                 EndContext();

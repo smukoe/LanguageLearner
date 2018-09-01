@@ -65,12 +65,12 @@ using LanguageLearning;
             WriteLiteral("\r\n<h2>List of Korean Words</h2>\r\n");
             EndContext();
             BeginContext(154, 2503, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "be957e1474df4e379914357edd2ba1d8", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "387a49d9d6fb420084d8d76bc52485e1", async() => {
                 BeginContext(160, 19, true);
                 WriteLiteral("\r\n    <p>\r\n        ");
                 EndContext();
                 BeginContext(179, 37, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3d1f68d3f88a44e0bd7afd26d4f8eb03", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "119f1034f97b428e90bd3aa6205cd554", async() => {
                     BeginContext(200, 12, true);
                     WriteLiteral("Add new word");
                     EndContext();
@@ -92,12 +92,12 @@ using LanguageLearning;
                 WriteLiteral("\r\n    </p>\r\n    ");
                 EndContext();
                 BeginContext(232, 283, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e50f480286c24664a633dbbb6e9fa015", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "03a5d4b9ecd041d1adcd5d89a1c5ab48", async() => {
                     BeginContext(238, 184, true);
                     WriteLiteral("       \r\n        <p>\r\n            Word:<input type=\"text\" name=\"searchWordName\" />\r\n                 <input type=\"submit\" value=\"Filter\" class=\"btn btn-default\" /> |\r\n                 ");
                     EndContext();
                     BeginContext(422, 43, false);
-                    __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1ecdf07fb04b4dbbbe1d92f7cd153a44", async() => {
+                    __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "073fd62d9bef40d39e0349e65e661a67", async() => {
                         BeginContext(444, 17, true);
                         WriteLiteral("Back to full list");
                         EndContext();
@@ -146,7 +146,7 @@ using LanguageLearning;
                 WriteLiteral("\r\n                </th>\r\n                <th>\r\n                    ");
                 EndContext();
                 BeginContext(747, 68, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "c5eb2a9e40644229bc67e7611df1e09b", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "bd87e26de7244111be4e957075e0a6c7", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_TagHelpers_AnchorTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper>();
@@ -286,7 +286,7 @@ using LanguageLearning;
                 WriteLiteral("\r\n                    </td>\r\n                    <td>\r\n                        ");
                 EndContext();
                 BeginContext(2321, 53, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "af3590a6a53d4c1e93dc8a402060d53a", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "6487b8b2cc34419ca0d58dd4859aa45b", async() => {
                     BeginContext(2366, 4, true);
                     WriteLiteral("Edit");
                     EndContext();
@@ -321,7 +321,7 @@ using LanguageLearning;
                 WriteLiteral(" |\r\n                        ");
                 EndContext();
                 BeginContext(2402, 59, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ded7d9e426134f94a6fded958377f178", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ac9a68838c5947a5b8a629d2531131db", async() => {
                     BeginContext(2450, 7, true);
                     WriteLiteral("Details");
                     EndContext();
@@ -356,7 +356,7 @@ using LanguageLearning;
                 WriteLiteral(" |\r\n                        ");
                 EndContext();
                 BeginContext(2489, 57, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "17eb56da61a541efb8f9afb09e1e7dd8", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "dc696aa23ff64b409c5ee1b39e4d2333", async() => {
                     BeginContext(2536, 6, true);
                     WriteLiteral("Delete");
                     EndContext();
